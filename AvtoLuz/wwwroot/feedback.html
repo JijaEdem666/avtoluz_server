@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style_feedback.css"/>
+    <title>АвтоЛуз - Отзывы о BMW X5 xDrive40i</title>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <img src="logo.png" width="100" height="50" alt="Логотип"/>
+        </a>
+        
+        <nav>
+            <a href="about.html">О нас</a>
+            <a href="catalogue.html">Каталог</a>
+            <a href="terms.html">Условия покупки</a>
+            <a href="favourites-page.html">Избранное</a>
+            <a href="contacts.html">Контакты</a>
+            <a href="admin_catalog.html">Добавить автомобиль</a>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="page-header">
+            <h1 class="page-title">Отзывы о BMW X5 xDrive40i</h1>
+            <a href="card.html" class="back-link">← Вернуться к автомобилю</a>
+        </div>
+
+
+        <div class="car-info-card">
+            <img src="bmw_x5_1.png" alt="BMW X5" class="car-image">
+            <div class="car-details">
+                <p class="car-model">BMW X5 xDrive40i</p>
+                <div class="car-specs">
+                    <span class="car-spec">2022 год</span>
+                    <span class="car-spec">15 000 км</span>
+                    <span class="car-spec">3.0 л, бензин, 340 л.с.</span>
+                    <span class="car-spec">Автоматическая коробка</span>
+                    <span class="car-spec">Полный привод</span>
+                </div>
+                <div class="car-price">5 500 000 руб.</div>
+            </div>
+        </div>
+
+
+        <section class="reviews-section">
+            <div class="reviews-header">
+                <h2 class="section-title">Отзывы владельцев</h2>
+                <button class="add-review-btn" id="addReviewBtn">Добавить отзыв</button>
+            </div>
+
+            <!-- Статистика отзывов -->
+            <div class="reviews-stats">
+                <div class="average-rating">
+                    <div class="rating-value">4.8</div>
+                    <div class="rating-stars">★★★★★</div>
+                    <div class="rating-count">15 отзывов</div>
+                </div>
+                
+                <div class="rating-bars">
+                    <div class="rating-bar">
+                        <span class="rating-label">5 звезд</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 80%"></div>
+                        </div>
+                        <span class="bar-percentage">80%</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span class="rating-label">4 звезды</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 15%"></div>
+                        </div>
+                        <span class="bar-percentage">15%</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span class="rating-label">3 звезды</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 5%"></div>
+                        </div>
+                        <span class="bar-percentage">5%</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span class="rating-label">2 звезды</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="bar-percentage">0%</span>
+                    </div>
+                    <div class="rating-bar">
+                        <span class="rating-label">1 звезда</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 0%"></div>
+                        </div>
+                        <span class="bar-percentage">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Элементы управления отзывами -->
+            <div class="reviews-controls">
+                <div class="sort-filter">
+                    <select class="sort-select">
+                        <option value="newest">Сначала новые</option>
+                        <option value="oldest">Сначала старые</option>
+                        <option value="highest">Сначала с высокой оценкой</option>
+                        <option value="lowest">Сначала с низкой оценкой</option>
+                        <option value="most-helpful">Сначала полезные</option>
+                    </select>
+                    
+                    <select class="filter-select">
+                        <option value="all">Все отзывы</option>
+                        <option value="5">Только 5 звезд</option>
+                        <option value="4">Только 4 звезды</option>
+                        <option value="3">Только 3 звезды</option>
+                        <option value="2">Только 2 звезды</option>
+                        <option value="1">Только 1 звезда</option>
+                    </select>
+                </div>
+                
+                <div class="reviews-count">Показано 10 из 15 отзывов</div>
+            </div>
+
+            
+            <div class="reviews-list">
+                
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="review-author">
+                            <div class="author-avatar">АИ</div>
+                            <div class="author-info">
+                                <h4>Алексей Иванов</h4>
+                                <div class="review-date">15 января 2023</div>
+                            </div>
+                        </div>
+                        <div class="review-rating">★★★★★</div>
+                    </div>
+                    <div class="review-text">
+                        <p>Пользуюсь BMW X5 уже полгода. Машина просто великолепна! Мощный двигатель, плавный ход, отличная управляемость. Салон очень комфортный, все продумано до мелочей. Расход топлива в городе около 12-13 л, по трассе 8-9 л. Из недостатков - высокие затраты на обслуживание, но для автомобиля этого класса это ожидаемо.</p>
+                    </div>
+                    <div class="review-footer">
+                        <div class="review-helpful">
+                            <button class="helpful-btn">👍 Полезно</button>
+                            <span class="helpful-count">12</span>
+                        </div>
+                        <div class="review-actions">
+                            <button class="action-btn">Ответить</button>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="review-author">
+                            <div class="author-avatar">МП</div>
+                            <div class="author-info">
+                                <h4>Мария Петрова</h4>
+                                <div class="review-date">3 декабря 2022</div>
+                            </div>
+                        </div>
+                        <div class="review-rating">★★★★★</div>
+                    </div>
+                    <div class="review-text">
+                        <p>Покупкой более чем довольна! BMW X5 - это идеальное сочетание комфорта, мощности и практичности. Отличная система полного привода, которая уверенно чувствует себя в любую погоду. Салон очень просторный, дети с удовольствием ездят на заднем сиденье. Музыкальная система Harman Kardon просто потрясающая!</p>
+                    </div>
+                    <div class="review-footer">
+                        <div class="review-helpful">
+                            <button class="helpful-btn">👍 Полезно</button>
+                            <span class="helpful-count">8</span>
+                        </div>
+                        <div class="review-actions">
+                            <button class="action-btn">Ответить</button>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="review-author">
+                            <div class="author-avatar">ДС</div>
+                            <div class="author-info">
+                                <h4>Дмитрий Сидоров</h4>
+                                <div class="review-date">22 октября 2022</div>
+                            </div>
+                        </div>
+                        <div class="review-rating">★★★★☆</div>
+                    </div>
+                    <div class="review-text">
+                        <p>Хороший автомобиль, но есть небольшие замечания. Двигатель мощный, разгон динамичный, подвеска комфортная. Однако, расход топлива немного выше заявленного, а также стоимость обслуживания в официальном дилерском центре довольно высокая. В целом, впечатления положительные, но не без недостатков.</p>
+                    </div>
+                    <div class="review-footer">
+                        <div class="review-helpful">
+                            <button class="helpful-btn">👍 Полезно</button>
+                            <span class="helpful-count">5</span>
+                        </div>
+                        <div class="review-actions">
+                            <button class="action-btn">Ответить</button>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="review-author">
+                            <div class="author-avatar">СК</div>
+                            <div class="author-info">
+                                <h4>Сергей Козлов</h4>
+                                <div class="review-date">10 сентября 2022</div>
+                            </div>
+                        </div>
+                        <div class="review-rating">★★★★★</div>
+                    </div>
+                    <div class="review-text">
+                        <p>Езжу на BMW X5 уже год. За это время проехал 25 000 км. Машина не подвела ни разу. Отличная динамика, комфортная подвеска, качественная отделка салона. Система помощи водителю реально помогает в долгих поездках. Единственный минус - дорогие оригинальные запчасти, но это характерно для всех автомобилей премиум-класса.</p>
+                    </div>
+                    <div class="review-footer">
+                        <div class="review-helpful">
+                            <button class="helpful-btn">👍 Полезно</button>
+                            <span class="helpful-count">7</span>
+                        </div>
+                        <div class="review-actions">
+                            <button class="action-btn">Ответить</button>
+                            
+                        </div>
+                    </div>
+                </div>
+
+               
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="review-author">
+                            <div class="author-avatar">ОЛ</div>
+                            <div class="author-info">
+                                <h4>Ольга Лебедева</h4>
+                                <div class="review-date">5 августа 2022</div>
+                            </div>
+                        </div>
+                        <div class="review-rating">★★★★☆</div>
+                    </div>
+                    <div class="review-text">
+                        <p>BMW X5 - моя третья машина этой марки. Как всегда, качество на высоте. Нравится просторный салон, удобное управление, отличная обзорность. Сиденья с подогревом и вентиляцией - просто спасение в любую погоду. Из минусов отмечу только высокий расход топлива в городском цикле и дорогое ТО.</p>
+                    </div>
+                    <div class="review-footer">
+                        <div class="review-helpful">
+                            <button class="helpful-btn">👍 Полезно</button>
+                            <span class="helpful-count">4</span>
+                        </div>
+                        <div class="review-actions">
+                            <button class="action-btn">Ответить</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="reviews-pagination">
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">→</button>
+            </div>
+
+            
+            <div class="add-review-form" id="reviewForm">
+                <p class="form-title">Добавить отзыв</p>
+                <form id="newReviewForm">
+                    <div class="form-group">
+                        <label class="form-label">Ваше имя</label>
+                        <input type="text" class="form-control" id="reviewerName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Оценка</label>
+                        <div class="rating-select" id="ratingSelect">
+                            <span class="rating-star" data-rating="1">★</span>
+                            <span class="rating-star" data-rating="2">★</span>
+                            <span class="rating-star" data-rating="3">★</span>
+                            <span class="rating-star" data-rating="4">★</span>
+                            <span class="rating-star" data-rating="5">★</span>
+                        </div>
+                        <input type="hidden" id="selectedRating" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Ваш отзыв</label>
+                        <textarea class="form-control" id="reviewText" placeholder="Поделитесь своими впечатлениями о автомобиле..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="form-submit">Опубликовать отзыв</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 Автомобильный агрегатор "АвтоЛуз". Все права защищены. Email: <a href="mailto:info@avtoluz.ru">info@avtoluz.ru</a></p>
+    </footer>
+
+    <script>
+        // Открытие формы отзыва
+        document.getElementById('addReviewBtn').addEventListener('click', function() {
+            const form = document.getElementById('reviewForm');
+            
+            // Прокрутка к форме
+            
+            form.scrollIntoView({ behavior: 'smooth' });
+            
+        });
+
+        // Выбор рейтинга звездами
+        document.querySelectorAll('.rating-star').forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.getAttribute('data-rating');
+                document.getElementById('selectedRating').value = rating;
+                
+                // Обновляем отображение звезд
+                document.querySelectorAll('.rating-star').forEach(s => {
+                    if (s.getAttribute('data-rating') <= rating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Обработка формы отзыва
+        document.getElementById('newReviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('reviewerName').value;
+            const rating = document.getElementById('selectedRating').value;
+            const text = document.getElementById('reviewText').value;
+            
+            if (!name || !rating || !text) {
+                alert('Пожалуйста, заполните все поля формы');
+                return;
+            }
+            
+            // В реальном приложении здесь был бы AJAX-запрос к серверу
+            alert('Спасибо за ваш отзыв! После модерации он будет опубликован на сайте.');
+            
+            // Очищаем форму
+            this.reset();
+            document.querySelectorAll('.rating-star').forEach(star => {
+                star.classList.remove('active');
+            });
+            
+            // Скрываем форму
+            document.getElementById('reviewForm').style.display = 'none';
+        });
+
+        // Обработка кнопок "Полезно"
+        document.querySelectorAll('.helpful-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const countElement = this.nextElementSibling;
+                let count = parseInt(countElement.textContent);
+                count++;
+                countElement.textContent = count;
+                
+                // Меняем стиль кнопки
+                this.style.background = '#ff6b35';
+                this.style.color = 'white';
+                this.disabled = true;
+            });
+        });
+
+        // Обработка пагинации
+        document.querySelectorAll('.pagination-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.textContent === '→') return;
+                
+                document.querySelectorAll('.pagination-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // В реальном приложении здесь была бы загрузка новой страницы отзывов
+            });
+        });
+
+        // Обработка сортировки и фильтрации
+        document.querySelectorAll('.sort-select, .filter-select').forEach(select => {
+            select.addEventListener('change', function() {
+                // В реальном приложении здесь была бы перезагрузка отзывов
+                // с учетом выбранных параметров сортировки и фильтрации
+                console.log('Изменен параметр:', this.className, this.value);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style_card.css"/>
+    <title>АвтоЛуз - Загрузка...</title>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">
+            <img src="logo.png" width="100" height="50" alt="Логотип"/>
+        </a>
+        <nav>
+            <a href="about.html">О нас</a>
+            <a href="catalogue.html">Каталог</a>
+            <a href="terms.html">Условия покупки</a>
+            <a href="favourites-page.html">Избранное</a>
+            <a href="contacts.html">Контакты</a>
+            <a href="admin_catalog.html">Добавить автомобиль</a>
+        </nav>
+    </header>
+
+    <!-- ══════════════════════════════════════════
+         Состояние: загрузка
+    ══════════════════════════════════════════ -->
+    <div id="state-loading" style="text-align:center; padding: 80px 20px;">
+        <div style="
+            display: inline-block;
+            width: 48px; height: 48px;
+            border: 4px solid #e0e0e0;
+            border-top-color: #c0392b;
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+        "></div>
+        <p style="color:#888; margin-top: 16px; font-size: 16px;">Загружаем информацию об автомобиле...</p>
+        <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         Состояние: ошибка
+    ══════════════════════════════════════════ -->
+    <div id="state-error" style="display:none; text-align:center; padding: 80px 20px;">
+        <p style="font-size: 48px; margin: 0;">🚗</p>
+        <h2 id="error-title" style="color:#c0392b; margin: 16px 0 8px;">Автомобиль не найден</h2>
+        <p id="error-text" style="color:#888;">Возможно, он был удалён из каталога.</p>
+        <a href="catalogue.html" style="
+            display: inline-block; margin-top: 24px;
+            padding: 12px 28px; background: #c0392b; color: #fff;
+            border-radius: 8px; text-decoration: none; font-weight: 600;
+        ">← Вернуться в каталог</a>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         Основной контент (скрыт до загрузки данных)
+    ══════════════════════════════════════════ -->
+    <main id="state-content" style="display:none;">
+
+        <h1 id="car-title">—</h1>
+
+        <div class="car-detail-container">
+
+            <div class="car-header">
+                <div class="car-actions">
+                    <button class="btn favorite-btn" id="favoriteBtn">В избранное</button>
+                    <button class="btn credit-btn" onclick="goToCreditCalculator()">Кредитный калькулятор</button>
+                    <button class="btn credit-btn" onclick="goToFeedback()">Отзывы</button>
+                </div>
+            </div>
+
+            <div class="car-content">
+
+                <!-- Галерея -->
+                <div class="car-gallery">
+                    <div class="main-image">
+                        <img id="mainImage" src="" alt="Фото автомобиля"/>
+                    </div>
+                    <div class="thumbnails" id="thumbnails">
+                        <!-- Миниатюры вставляются динамически -->
+                    </div>
+                </div>
+
+                <!-- Информация + цена -->
+                <div class="car-info">
+                    <div class="buy-section">
+                        <div class="car-price" id="car-price">—</div>
+                        <button class="btn buy-btn">Купить сейчас</button>
+                        <p class="credit-info" id="credit-info">Рассчитайте кредит</p>
+                    </div>
+
+                    <div class="car-specs">
+                        <h2 class="specs-title">Характеристики</h2>
+                        <div class="specs-grid" id="specs-grid">
+                            <!-- Строки характеристик вставляются динамически -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Описание -->
+        <h2>Описание автомобиля</h2>
+        <div id="car-description" style="line-height: 1.7; color: #333;"></div>
+
+        <!-- Модальное окно для просмотра фото -->
+        <div id="imageModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="modalImage" alt=""/>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Автомобильный агрегатор "АвтоЛуз". Все права защищены.
+            Email: <a href="mailto:info@avtoluz.ru">info@avtoluz.ru</a></p>
+    </footer>
+
+    <script>
+    (function () {
+        'use strict';
+
+        /* ════════════════════════════════════════════
+         * Вспомогательные справочники (значение → метка)
+         * ════════════════════════════════════════════ */
+
+        var BODY_LABELS = {
+            sedan: 'Седан', hatchback: 'Хэтчбек', suv: 'Внедорожник',
+            coupe: 'Купе', wagon: 'Универсал', minivan: 'Минивэн',
+            convertible: 'Кабриолет', pickup: 'Пикап'
+        };
+        var FUEL_LABELS = {
+            petrol: 'Бензиновый', diesel: 'Дизельный',
+            hybrid: 'Гибридный',  electric: 'Электрический', gas: 'Газовый'
+        };
+        var TX_LABELS = {
+            automatic: 'Автоматическая', manual: 'Механическая',
+            robot: 'Роботизированная',   variator: 'Вариатор'
+        };
+        var DRIVE_LABELS = {
+            front: 'Передний', rear: 'Задний', all: 'Полный (4WD)'
+        };
+        var STEERING_LABELS  = { left: 'Левый', right: 'Правый' };
+        var CLIMATE_LABELS   = {
+            none: 'Нет', '1-zone': '1-зонный', '2-zone': '2-зонный',
+            '3-zone': '3-зонный', '4-zone': '4-зонный'
+        };
+        var HEATED_LABELS    = {
+            none: 'Нет', front: 'Передние', rear: 'Задние', front_rear: 'Все сиденья'
+        };
+        var CRUISE_LABELS    = { none: 'Нет', regular: 'Обычный', adaptive: 'Адаптивный' };
+        var CAMERA_LABELS    = { none: 'Нет', rear: 'Задняя', surround: 'Круговая' };
+        var PARKING_LABELS   = { none: 'Нет', front: 'Передние', rear: 'Задние', front_rear: 'Перед. и задние' };
+        var SEAT_ADJ_LABELS  = { none: 'Нет', driver: 'Водитель', driver_passenger: 'Водитель и пассажир' };
+
+        /* ════════════════════════════════════════════
+         * Получаем id из строки запроса (?id=5)
+         * ════════════════════════════════════════════ */
+
+        function getIdFromUrl() {
+            var match = window.location.search.match(/[?&]id=(\d+)/);
+            return match ? parseInt(match[1], 10) : null;
+        }
+
+        /* ════════════════════════════════════════════
+         * Переключение состояний страницы
+         * ════════════════════════════════════════════ */
+
+        function showState(name) {
+            document.getElementById('state-loading').style.display = name === 'loading'  ? '' : 'none';
+            document.getElementById('state-error').style.display   = name === 'error'    ? '' : 'none';
+            document.getElementById('state-content').style.display = name === 'content'  ? '' : 'none';
+        }
+
+        function showError(title, text) {
+            document.getElementById('error-title').textContent = title;
+            document.getElementById('error-text').textContent  = text;
+            showState('error');
+        }
+
+        /* ════════════════════════════════════════════
+         * AJAX — загрузка автомобиля по id
+         * GET /api/cars/{id}
+         * ════════════════════════════════════════════ */
+
+        function ajaxGetCar(id, onSuccess, onError) {
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState !== XMLHttpRequest.DONE) return;
+
+                if (xhr.status === 200) {
+                    var car;
+                    try {
+                        car = JSON.parse(xhr.responseText);
+                    } catch (e) {
+                        onError('Ошибка разбора JSON: ' + e.message);
+                        return;
+                    }
+                    onSuccess(car);
+
+                } else if (xhr.status === 404) {
+                    onError('Автомобиль с id=' + id + ' не найден в базе данных.');
+
+                } else {
+                    onError('Ошибка сервера: HTTP ' + xhr.status);
+                }
+            };
+
+            xhr.onerror = function () {
+                onError('Сетевая ошибка. Убедитесь, что сервер запущен (dotnet run).');
+            };
+
+            xhr.ontimeout = function () {
+                onError('Сервер не ответил в течение 10 секунд.');
+            };
+
+            xhr.timeout = 10000;
+            xhr.open('GET', '/api/cars/' + id, true);
+            xhr.setRequestHeader('Accept', 'application/json');
+            xhr.send();
+        }
+
+        /* ════════════════════════════════════════════
+         * Заполнение страницы данными автомобиля
+         * ════════════════════════════════════════════ */
+
+        function renderCar(car) {
+            /* ── Заголовок страницы и тег <title> ── */
+            var fullName = car.brand + ' ' + car.model;
+            document.title = 'АвтоЛуз - ' + fullName;
+            document.getElementById('car-title').textContent = fullName;
+
+            /* ── Цена ── */
+            document.getElementById('car-price').textContent =
+                car.price.toLocaleString('ru-RU') + ' ₽';
+
+            /* ── Примерный платёж по кредиту (упрощённый расчёт: 36 мес., 12%) ── */
+            var monthly = Math.round(car.price / 36 * 1.12 / 1000) * 1000;
+            document.getElementById('credit-info').textContent =
+                'Рассчитайте кредит от ' + monthly.toLocaleString('ru-RU') + ' ₽/мес';
+
+            /* ── Галерея ── */
+            renderGallery(car);
+
+            /* ── Таблица характеристик ── */
+            renderSpecs(car);
+
+            /* ── Описание ── */
+            var descEl = document.getElementById('car-description');
+            if (car.description) {
+                /* Разбиваем на абзацы по точке с заглавной буквы / переносам */
+                descEl.innerHTML = car.description
+                    .split(/\n+/)
+                    .filter(function (s) { return s.trim(); })
+                    .map(function (s) { return '<p>' + escHtml(s.trim()) + '</p>'; })
+                    .join('');
+            } else {
+                descEl.innerHTML = '<p style="color:#999;">Описание отсутствует.</p>';
+            }
+
+            /* ── Кнопка «В избранное» ── */
+            initFavoriteButton(car.id);
+
+            /* Показываем контент */
+            showState('content');
+        }
+
+        /* ── Галерея ─────────────────────────────── */
+
+        function renderGallery(car) {
+            var mainImg   = document.getElementById('mainImage');
+            var thumbsEl  = document.getElementById('thumbnails');
+
+            /* Основное изображение */
+            mainImg.src = car.image || 'placeholder.png';
+            mainImg.alt = car.brand + ' ' + car.model;
+            mainImg.onerror = function () { this.src = 'placeholder.png'; };
+
+            /* Клик на основное фото → модальное окно */
+            mainImg.addEventListener('click', function () {
+                openModal(this.src);
+            });
+
+            /* Миниатюры — у нас одно изображение из БД, показываем одну плашку */
+            thumbsEl.innerHTML = '';
+            var thumb = createThumb(car.image || 'placeholder.png', car.brand + ' ' + car.model, true);
+            thumbsEl.appendChild(thumb);
+        }
+
+        function createThumb(src, alt, active) {
+            var div = document.createElement('div');
+            div.className = 'thumbnail' + (active ? ' active' : '');
+            div.setAttribute('data-image', src);
+
+            var img = document.createElement('img');
+            img.src = src;
+            img.alt = alt;
+            img.onerror = function () { this.src = 'placeholder.png'; };
+
+            div.appendChild(img);
+
+            div.addEventListener('click', function () {
+                document.querySelectorAll('.thumbnail').forEach(function (t) {
+                    t.classList.remove('active');
+                });
+                div.classList.add('active');
+                document.getElementById('mainImage').src = src;
+            });
+
+            return div;
+        }
+
+        /* ── Таблица характеристик ───────────────── */
+
+        function renderSpecs(car) {
+            var grid = document.getElementById('specs-grid');
+            grid.innerHTML = '';
+
+            var specs = [
+                /* Основные */
+                ['Марка',            car.brand],
+                ['Модель',           car.model],
+                ['Год выпуска',      car.year + ' г.'],
+                ['Пробег',           car.mileage.toLocaleString('ru-RU') + ' км'],
+                ['Цвет',             car.color],
+                ['Руль',             STEERING_LABELS[car.steering]  || car.steering],
+                /* Двигатель */
+                ['Двигатель',        car.engineDescription || '—'],
+                ['Тип топлива',      FUEL_LABELS[car.fuelType]       || car.fuelType],
+                ['Объём двигателя',  car.engineVolume ? car.engineVolume + ' л'    : null],
+                ['Мощность',         car.power        ? car.power + ' л.с.'        : null],
+                ['Разгон 0–100',     car.acceleration ? car.acceleration + ' сек'  : null],
+                ['Расход топлива',   car.fuelConsumption ? car.fuelConsumption + ' л/100км' : null],
+                /* Трансмиссия */
+                ['Коробка передач',  TX_LABELS[car.transmission]     || car.transmission],
+                ['Привод',           DRIVE_LABELS[car.driveType]      || car.driveType],
+                /* Кузов */
+                ['Тип кузова',       BODY_LABELS[car.bodyType]        || car.bodyType],
+                ['Количество дверей',car.doors ? car.doors + ' дв.'   : null],
+                ['Объём багажника',  car.trunkVolume ? car.trunkVolume + ' л' : null],
+                ['Длина',            car.lengthMm  ? car.lengthMm  + ' мм' : null],
+                ['Ширина',           car.widthMm   ? car.widthMm   + ' мм' : null],
+                ['Высота',           car.heightMm  ? car.heightMm  + ' мм' : null],
+                ['Колёсная база',    car.wheelbaseMm ? car.wheelbaseMm + ' мм' : null],
+                /* Комфорт */
+                ['Климат-контроль',  CLIMATE_LABELS[car.climateControl]    || null],
+                ['Подогрев сидений', HEATED_LABELS[car.heatedSeats]        || null],
+                ['Круиз-контроль',   CRUISE_LABELS[car.cruiseControl]      || null],
+                ['Мультимедиа',      car.multimedia   || null],
+                ['Аудиосистема',     car.audioSystem  || null],
+                ['Эл. регулировка сидений', SEAT_ADJ_LABELS[car.seatAdjustment] || null],
+                ['Кожаный салон',    car.leatherInterior ? 'Да' : null],
+                ['Люк',              car.sunroof         ? 'Да' : null],
+                /* Безопасность */
+                ['Подушки безопасности', car.airbags != null ? car.airbags + ' шт.' : null],
+                ['Камера',           CAMERA_LABELS[car.camera]         || null],
+                ['Парктроники',      PARKING_LABELS[car.parkingSensors] || null],
+                ['ABS',              car.abs              ? 'Да' : null],
+                ['ESP',              car.esp              ? 'Да' : null],
+                ['Распознавание знаков', car.signRecognition ? 'Да' : null],
+            ];
+
+            specs.forEach(function (row) {
+                /* Пропускаем строки без значения */
+                if (row[1] === null || row[1] === undefined || row[1] === '') return;
+
+                var item = document.createElement('div');
+                item.className = 'spec-item';
+                item.innerHTML =
+                    '<span class="spec-name">'  + escHtml(row[0]) + ':</span>' +
+                    '<span class="spec-value">' + escHtml(String(row[1])) + '</span>';
+                grid.appendChild(item);
+            });
+        }
+
+        /* ── Избранное ───────────────────────────── */
+
+        function initFavoriteButton(carId) {
+            var btn  = document.getElementById('favoriteBtn');
+            var favs = getFavorites();
+            var isActive = favs.indexOf(carId) !== -1;
+
+            btn.textContent = isActive ? '★ В избранном' : '☆ В избранное';
+            btn.style.background = isActive ? '#c0392b' : '';
+            btn.style.color      = isActive ? '#fff'    : '';
+
+            btn.addEventListener('click', function () {
+                var list = getFavorites();
+                var idx  = list.indexOf(carId);
+                if (idx === -1) {
+                    list.push(carId);
+                    btn.textContent = '★ В избранном';
+                    btn.style.background = '#c0392b';
+                    btn.style.color      = '#fff';
+                } else {
+                    list.splice(idx, 1);
+                    btn.textContent = '☆ В избранное';
+                    btn.style.background = '';
+                    btn.style.color      = '';
+                }
+                saveFavorites(list);
+            });
+        }
+
+        function getFavorites() {
+            try { return JSON.parse(localStorage.getItem('favorites') || '[]'); }
+            catch (e) { return []; }
+        }
+        function saveFavorites(list) {
+            localStorage.setItem('favorites', JSON.stringify(list));
+        }
+
+        /* ── Модальное окно ──────────────────────── */
+
+        function openModal(src) {
+            var modal   = document.getElementById('imageModal');
+            var modalImg = document.getElementById('modalImage');
+            modal.style.display = 'block';
+            modalImg.src = src;
+        }
+
+        document.getElementById('imageModal')
+            .querySelector('.close')
+            .addEventListener('click', function () {
+                document.getElementById('imageModal').style.display = 'none';
+            });
+
+        window.addEventListener('click', function (e) {
+            var modal = document.getElementById('imageModal');
+            if (e.target === modal) modal.style.display = 'none';
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape')
+                document.getElementById('imageModal').style.display = 'none';
+        });
+
+        /* ── Навигация ───────────────────────────── */
+
+        window.goToCreditCalculator = function () {
+            window.location.href = 'credit_calculator.html';
+        };
+        window.goToFeedback = function () {
+            window.location.href = 'feedback.html';
+        };
+
+        /* ── Утилита: экранирование HTML ─────────── */
+
+        function escHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        /* ════════════════════════════════════════════
+         * Точка входа
+         * ════════════════════════════════════════════ */
+
+        var carId = getIdFromUrl();
+
+        if (!carId) {
+            showError(
+                'ID автомобиля не указан',
+                'Перейдите в каталог и выберите автомобиль из списка.'
+            );
+            return;
+        }
+
+        showState('loading');
+
+        ajaxGetCar(
+            carId,
+
+            /* onSuccess */
+            function (car) {
+                renderCar(car);
+            },
+
+            /* onError */
+            function (msg) {
+                showError('Не удалось загрузить автомобиль', msg);
+            }
+        );
+
+    }());
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style_compare.css"/>
+    <title>АвтоЛуз - Сравнение автомобилей</title>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" width="100" height="50" alt="Логотип АвтоЛуз">
+            </a>
+            
+            <nav>
+                <a href="about.html">О нас</a>
+                <a href="catalogue.html">Каталог</a>
+                <a href="terms.html">Условия покупки</a>
+                <a href="favourites-page.html">Избранное</a>
+                <a href="contacts.html">Контакты</a>
+                <a href="admin_catalog.html">Добавить автомобиль</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="page-header">
+            <h1>Сравнение автомобилей</h1>
+            <a href="favourites.html" class="back-link">← Назад к избранному</a>
+        </div>
+        
+        <div class="comparison-container">
+            <div class="cars-selection">
+                <div class="car-select">
+                    <label for="car1">Первый автомобиль:</label>
+                    <select id="car1">
+                        <option value="bmw">BMW X5 xDrive40i</option>
+                        <option value="mercedes">Mercedes-Benz E-Class</option>
+                        <option value="audi">Audi A4 Premium</option>
+                    </select>
+                </div>
+                
+                <div class="car-select">
+                    <label for="car2">Второй автомобиль:</label>
+                    <select id="car2">
+                        <option value="mercedes">Mercedes-Benz E-Class</option>
+                        <option value="bmw">BMW X5 xDrive40i</option>
+                        <option value="audi">Audi A4 Premium</option>
+                    </select>
+                </div>
+            </div>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Характеристика</th>
+                        <th id="car1-header">
+                            <div class="car-header">
+                                <img src="bmw_x5_1.png" width="500" alt="BMW X5" class="car-image">
+                                <div class="car-title">BMW X5 xDrive40i</div>
+                                <div class="car-price">5 500 000 руб.</div>
+                                <div class="car-actions">
+                                    <button class="car-button view-btn">Подробнее</button>
+                                 </div>
+                            </div>
+                        </th>
+                        <th id="car2-header">
+                            <div class="car-header">
+                                <img src="mercedes-benz-e-class.jpeg" alt="Mercedes-Benz E-Class" width="500" class="car-image">
+                                <div class="car-title">Mercedes-Benz E-Class</div>
+                                <div class="car-price">4 800 000 руб.</div>
+                                <div class="car-actions">
+                                    <button class="car-button view-btn">Подробнее</button>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="spec-category">
+                        <td colspan="3">Общая информация</td>
+                    </tr>
+                    <tr>
+                        <td>Марка</td>
+                        <td>BMW</td>
+                        <td>Mercedes-Benz</td>
+                    </tr>
+                    <tr>
+                        <td>Модель</td>
+                        <td>X5 xDrive40i</td>
+                        <td>E-Class</td>
+                    </tr>
+                    <tr>
+                        <td>Год выпуска</td>
+                        <td>2022</td>
+                        <td>2021</td>
+                    </tr>
+                    <tr>
+                        <td>Пробег</td>
+                        <td>15 000 км</td>
+                        <td>25 000 км</td>
+                    </tr>
+                    <tr>
+                        <td>Цена</td>
+                        <td class="advantage">5 500 000 руб.</td>
+                        <td>4 800 000 руб.</td>
+                    </tr>
+                    
+                    <tr class="spec-category">
+                        <td colspan="3">Двигатель и трансмиссия</td>
+                    </tr>
+                    <tr>
+                        <td>Двигатель</td>
+                        <td>3.0 л, бензин, 340 л.с.</td>
+                        <td>2.0 л, дизель, 245 л.с.</td>
+                    </tr>
+                    <tr>
+                        <td>Коробка передач</td>
+                        <td>Автоматическая (8-ступ.)</td>
+                        <td>Автоматическая (9-ступ.)</td>
+                    </tr>
+                    <tr>
+                        <td>Привод</td>
+                        <td>Полный (4WD)</td>
+                        <td>Задний</td>
+                    </tr>
+                    <tr>
+                        <td>Разгон 0-100 км/ч</td>
+                        <td class="advantage">5.5 сек</td>
+                        <td>6.9 сек</td>
+                    </tr>
+                    <tr>
+                        <td>Расход топлива</td>
+                        <td>9.2 л/100км</td>
+                        <td class="advantage">5.7 л/100км</td>
+                    </tr>
+                    
+                    <tr class="spec-category">
+                        <td colspan="3">Кузов и габариты</td>
+                    </tr>
+                    <tr>
+                        <td>Тип кузова</td>
+                        <td>Внедорожник</td>
+                        <td>Седан</td>
+                    </tr>
+                    <tr>
+                        <td>Цвет</td>
+                        <td>Черный сапфир</td>
+                        <td>Серый металлик</td>
+                    </tr>
+                    <tr>
+                        <td>Количество дверей</td>
+                        <td>5</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>Длина</td>
+                        <td>4922 мм</td>
+                        <td>4933 мм</td>
+                    </tr>
+                    <tr>
+                        <td>Ширина</td>
+                        <td class="advantage">2004 мм</td>
+                        <td>1852 мм</td>
+                    </tr>
+                    <tr>
+                        <td>Высота</td>
+                        <td class="advantage">1776 мм</td>
+                        <td>1468 мм</td>
+                    </tr>
+                    <tr>
+                        <td>Колесная база</td>
+                        <td>2975 мм</td>
+                        <td class="advantage">2939 мм</td>
+                    </tr>
+                    <tr>
+                        <td>Объем багажника</td>
+                        <td class="advantage">650 л</td>
+                        <td>540 л</td>
+                    </tr>
+                    
+                    <tr class="spec-category">
+                        <td colspan="3">Комфорт и оборудование</td>
+                    </tr>
+                    <tr>
+                        <td>Климат-контроль</td>
+                        <td class="advantage">4-зонный</td>
+                        <td>2-зонный</td>
+                    </tr>
+                    <tr>
+                        <td>Кожаный салон</td>
+                        <td>Да</td>
+                        <td>Да</td>
+                    </tr>
+                    <tr>
+                        <td>Электрорегулировка сидений</td>
+                        <td class="advantage">Водитель и пассажир</td>
+                        <td>Только водитель</td>
+                    </tr>
+                    <tr>
+                        <td>Подогрев сидений</td>
+                        <td class="advantage">Передние и задние</td>
+                        <td>Передние</td>
+                    </tr>
+                    <tr>
+                        <td>Круиз-контроль</td>
+                        <td class="advantage">Адаптивный</td>
+                        <td>Обычный</td>
+                    </tr>
+                    <tr>
+                        <td>Мультимедиа</td>
+                        <td>iDrive 7.0, 12.3"</td>
+                        <td>MBUX, 10.25"</td>
+                    </tr>
+                    <tr>
+                        <td>Аудиосистема</td>
+                        <td class="advantage">Harman Kardon</td>
+                        <td>Burmester</td>
+                    </tr>
+                    
+                    <tr class="spec-category">
+                        <td colspan="3">Безопасность</td>
+                    </tr>
+                    <tr>
+                        <td>ABS</td>
+                        <td>Да</td>
+                        <td>Да</td>
+                    </tr>
+                    <tr>
+                        <td>ESP</td>
+                        <td>Да</td>
+                        <td>Да</td>
+                    </tr>
+                    <tr>
+                        <td>Подушки безопасности</td>
+                        <td class="advantage">8</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>Камера заднего вида</td>
+                        <td class="advantage">Круговая</td>
+                        <td>Задняя</td>
+                    </tr>
+                    <tr>
+                        <td>Парктроники</td>
+                        <td class="advantage">Передние и задние</td>
+                        <td>Задние</td>
+                    </tr>
+                    <tr>
+                        <td>Система распознавания знаков</td>
+                        <td>Да</td>
+                        <td>Да</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 Автомобильный агрегатор "АвтоЛуз". Все права защищены. Email: <a href="mailto:info@avtoluz.ru">info@avtoluz.ru</a></p>
+    </footer>
+    
+</body>
+</html>

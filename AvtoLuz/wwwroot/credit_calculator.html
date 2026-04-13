@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style_credit_calculator.css"/>
+    <title>Автолуз - Кредитный калькулятор BMW X5 xDrive40i</title>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" width="100" height="50" alt="Логотип АвтоЛуз">
+            </a>
+            
+            <nav>
+                <a href="about.html">О нас</a>
+                <a href="catalogue.html">Каталог</a>
+                <a href="terms.html">Условия покупки</a>
+                <a href="favourites-page.html">Избранное</a>
+                <a href="contacts.html">Контакты</a>
+                <a href="admin_catalog.html">Добавить автомобиль</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="car-info">
+            <h1>BMW X5 xDrive40i</h1>
+            <img src="bmw_x5_1.png" alt="BMW X5" class="car-image">
+            
+            <div class="car-price">5 500 000 руб.</div>
+            
+            <div class="car-specs">
+                <h2>Основные характеристики</h2>
+                <div class="spec-item">
+                    <span class="spec-name">Год выпуска:</span>
+                    <span class="spec-value">2022</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-name">Пробег:</span>
+                    <span class="spec-value">15 000 км</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-name">Двигатель:</span>
+                    <span class="spec-value">3.0 л, бензин, 340 л.с.</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-name">Коробка передач:</span>
+                    <span class="spec-value">Автоматическая</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-name">Привод:</span>
+                    <span class="spec-value">Полный (4WD)</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-name">Цвет:</span>
+                    <span class="spec-value">Черный сапфир</span>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <a href="javascript:history.back()" class="btn back-btn">Назад к автомобилю</a>
+                <a class="btn apply-btn">Оформить заявку на кредит</a>
+            </div>
+        </div>
+        
+        <div class="calculator">
+            <h2>Кредитный калькулятор</h2>
+            
+            <form class="calculator-form">
+                <div class="form-group">
+                    <label for="carPrice">Стоимость автомобиля (руб.)</label>
+                    <input type="number" id="carPrice" value="5500000" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="downPayment">Первоначальный взнос (%)</label>
+                    <div class="range-container">
+                        <input type="range" id="downPaymentRange" min="0" max="100" value="20" step="5">
+                        <span class="range-value" id="downPaymentValue">20%</span>
+                    </div>
+                    <input type="number" id="downPaymentAmount" value="1100000" min="0" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loanTerm">Срок кредита (лет)</label>
+                    <div class="range-container">
+                        <input type="range" id="loanTermRange" min="1" max="7" value="5" step="1">
+                        <span class="range-value" id="loanTermValue">5 лет</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="interestRate">Процентная ставка (%)</label>
+                    <div class="range-container">
+                        <input type="range" id="interestRateRange" min="5" max="20" value="9" step="0.1">
+                        <span class="range-value" id="interestRateValue">9%</span>
+                    </div>
+                </div>
+                
+                <a id="calculateBtn" class="calculate-btn">Рассчитать кредит</a>
+                
+                <div class="calculator-results" id="calculatorResults">
+                    <h2>Результаты расчета</h2>
+                    <div class="result-item">
+                        <span class="result-label">Ежемесячный платеж:</span>
+                        <span class="result-value" id="monthlyPayment">91 337 руб.</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Сумма кредита:</span>
+                        <span class="result-value" id="totalLoanAmount">4 400 000 руб.</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Переплата по кредиту:</span>
+                        <span class="result-value" id="totalOverpayment">1 080 206 руб.</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Общая сумма выплат:</span>
+                        <span class="result-value" id="totalPayment">5 480 206 руб.</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 Автомобильный агрегатор "АвтоЛуз". Все права защищены. Email: <a href="mailto:info@avtoluz.ru">info@avtoluz.ru</a></p>
+    </footer>
+    
+</body>
+</html>

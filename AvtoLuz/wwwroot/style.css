@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+p {
+    text-indent: 1.5em;
+    line-height: 1.5;
+    padding: 0px 20px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #eaeaea;
+}
+
+h1, h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    margin-right: 40px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 35px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    padding: 8px 5px;
+}
+
+nav a:hover {
+    color: #007bff;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 30px 5%;
+    text-align: center;
+}
+
+.footer-content {
+    align-items: center;
+    margin: 0 auto;
+}
+
+.copyright {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+
+.email {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.email:hover {
+    color: #007bff;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 15px;
+    }
+    
+    .logo {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    nav ul {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    nav a {
+        font-size: 16px;
+    }
+
+        .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .copyright, .email {
+        margin-bottom: 15px;
+    }
+}

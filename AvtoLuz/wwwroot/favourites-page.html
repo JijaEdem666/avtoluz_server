@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style_catalogue.css"/>
+    <title>АвтоЛуз - Избранные автомобили</title>
+    <style>
+        .favorites-count {
+            font-size: 15px;
+            color: #888;
+            margin-left: 12px;
+        }
+        .page-header {
+            display: flex;
+            align-items: baseline;
+            gap: 0;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .empty-favourites {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .empty-favourites .empty-icon {
+            font-size: 64px;
+            line-height: 1;
+            color: #ddd;
+            margin-bottom: 16px;
+        }
+        .empty-favourites h2 { color: #555; margin-bottom: 8px; }
+        .empty-favourites p  { color: #999; max-width: 400px; margin: 0 auto 24px; }
+        .browse-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: #c0392b;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .browse-btn:hover { background: #a93226; }
+
+        .page-loader {
+            text-align: center;
+            padding: 80px 20px;
+            color: #888;
+        }
+        .page-loader-spinner {
+            display: inline-block;
+            width: 40px; height: 40px;
+            border: 4px solid #e0e0e0;
+            border-top-color: #c0392b;
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+            margin-bottom: 12px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .car-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .car-actions .car-button {
+            flex: 1;
+        }
+
+        .remove-favourite {
+            position: absolute;
+            top: 10px; right: 10px;
+            background: rgba(255,255,255,.9);
+            border: none;
+            border-radius: 50%;
+            width: 28px; height: 28px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #c0392b;
+            display: flex; align-items: center; justify-content: center;
+            transition: background .2s;
+        }
+        .remove-favourite:hover { background: #c0392b; color: #fff; }
+
+        .car-card {
+            position: relative;
+            transition: opacity .3s, transform .3s;
+        }
+        .car-card.removing {
+            opacity: 0;
+            transform: scale(.9);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">
+            <img src="logo.png" width="100" height="50" alt="Логотип"/>
+        </a>
+        <nav>
+            <a href="about.html">О нас</a>
+            <a href="catalogue.html">Каталог</a>
+            <a href="terms.html">Условия покупки</a>
+            <a href="favourites-page.html">Избранное</a>
+            <a href="contacts.html">Контакты</a>
+            <a href="admin_catalog.html">Добавить автомобиль</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="main-content">
+
+            <div class="page-header">
+                <h1 class="page-title">Избранные автомобили</h1>
+                <span class="favorites-count" id="fav-count"></span>
+            </div>
+
+            <div class="results-section">
+                <div id="state-loading" class="page-loader">
+                    <div class="page-loader-spinner"></div>
+                    <p>Загружаем избранное...</p>
+                </div>
+
+                <div id="state-error" style="display:none; text-align:center; padding:60px 20px;">
+                    <p style="font-size:40px;">⚠️</p>
+                    <p id="error-text" style="color:#c0392b; font-size:16px;"></p>
+                    <a href="catalogue.html" class="browse-btn" style="margin-top:16px;">Перейти в каталог</a>
+                </div>
+
+                <div class="cars-grid" id="favourites-container" style="display:none;"></div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Автомобильный агрегатор "АвтоЛуз". Все права защищены.
+            Email: <a href="/cdn-cgi/l/email-protection#cca5a2aaa38cadbab8a3a0b9b6e2beb9"><span class="__cf_email__" data-cfemail="1f767179705f7e696b70736a65316d6a">[email&#160;protected]</span></a></p>
+    </footer>
+
+    <script>
+    (function () {
+        'use strict';
+
+
+        function getSessionId() {
+            var key = 'avtoluz_session_id';
+            var id  = localStorage.getItem(key);
+            if (!id) {
+                id = 'sess-' + Date.now().toString(36) + '-' +
+                     Math.random().toString(36).slice(2, 10);
+                localStorage.setItem(key, id);
+            }
+            return id;
+        }
+
+
+
+        function ajaxRequest(method, url, onSuccess, onError) {
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState !== XMLHttpRequest.DONE) return; 
+
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    var data;
+                    try {
+                        data = JSON.parse(xhr.responseText);
+                    } catch (e) {
+                        onError('Ошибка разбора JSON: ' + e.message);
+                        return;
+                    }
+                    onSuccess(data);
+                } else {
+                    var errMsg = 'HTTP ' + xhr.status;
+                    try {
+                        var body = JSON.parse(xhr.responseText);
+                        if (body && body.error) errMsg = body.error;
+                    } catch (_) {}
+                    onError(errMsg);
+                }
+            };
+
+            xhr.onerror = function () {
+                onError('Сетевая ошибка. Убедитесь, что сервер запущен (dotnet run).');
+            };
+
+            xhr.ontimeout = function () {
+                onError('Время ожидания ответа истекло (10 сек).');
+            };
+
+            xhr.timeout = 10000;
+
+            var finalUrl = url;
+            if (url.indexOf('/api/favourites') !== -1) {
+                var sep = url.indexOf('?') === -1 ? '?' : '&';
+                finalUrl = url + sep + 'sid=' + encodeURIComponent(getSessionId());
+            }
+            xhr.open(method, finalUrl, /* async = */ true);
+            xhr.setRequestHeader('Accept',       'application/json');
+            xhr.send();
+        }
+
+        var BODY_LABELS  = { sedan:'Седан', hatchback:'Хэтчбек', suv:'Внедорожник', coupe:'Купе', wagon:'Универсал', minivan:'Минивэн', convertible:'Кабриолет', pickup:'Пикап' };
+        var FUEL_LABELS  = { petrol:'Бензин', diesel:'Дизель', hybrid:'Гибрид', electric:'Электро', gas:'Газ' };
+        var TX_LABELS    = { automatic:'Автомат', manual:'Механика', robot:'Робот', variator:'Вариатор' };
+        var DRIVE_LABELS = { front:'Передний', rear:'Задний', all:'Полный' };
+
+        var stateLoading  = document.getElementById('state-loading');
+        var stateError    = document.getElementById('state-error');
+        var errorText     = document.getElementById('error-text');
+        var container     = document.getElementById('favourites-container');
+        var countEl       = document.getElementById('fav-count');
+
+        function escHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function pluralAuto(n) {
+            var mod10  = n % 10;
+            var mod100 = n % 100;
+            if (mod10 === 1 && mod100 !== 11)              return 'автомобиль';
+            if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return 'автомобиля';
+            return 'автомобилей';
+        }
+
+        function updateCount(n) {
+            countEl.textContent = n > 0 ? '— ' + n + ' ' + pluralAuto(n) : '';
+        }
+
+        function showLoading() {
+            stateLoading.style.display = '';
+            stateError.style.display   = 'none';
+            container.style.display    = 'none';
+        }
+        function showError(msg) {
+            stateLoading.style.display = 'none';
+            stateError.style.display   = '';
+            container.style.display    = 'none';
+            errorText.textContent      = msg;
+        }
+        function showContent() {
+            stateLoading.style.display = 'none';
+            stateError.style.display   = 'none';
+            container.style.display    = '';
+        }
+
+        function renderEmpty() {
+            container.innerHTML =
+                '<div class="empty-favourites">' +
+                    '<div class="empty-icon">♥</div>' +
+                    '<h2>В избранном пока нет автомобилей</h2>' +
+                    '<p>Добавляйте понравившиеся автомобили в избранное,<br>' +
+                       'нажав на значок ♥ в карточке автомобиля.</p>' +
+                    '<a href="catalogue.html" class="browse-btn">Перейти в каталог</a>' +
+                '</div>';
+            updateCount(0);
+        }
+
+        function renderCard(car) {
+            var card = document.createElement('div');
+            card.className    = 'car-card';
+            card.dataset.carId = car.id;
+
+            card.innerHTML =
+                '<button class="remove-favourite" data-id="' + car.id + '" title="Удалить из избранного">✕</button>' +
+
+                '<img src="' + escHtml(car.image || '') + '"' +
+                '     alt="' + escHtml(car.brand + ' ' + car.model) + '"' +
+                '     height="200" class="car-image"' +
+                '     onerror="this.src=\'placeholder.png\'"/>' +
+
+                '<div class="car-info">' +
+                    '<p class="car-title">' + escHtml(car.brand + ' ' + car.model) + '</p>' +
+                    '<div class="car-details">' +
+                        '<span class="car-year">'  + escHtml(String(car.year)) + ' год</span>' +
+                        '<span class="car-price">' + car.price.toLocaleString('ru-RU') + ' ₽</span>' +
+                    '</div>' +
+                    '<div class="car-details" style="margin-top:4px;font-size:13px;color:#777;">' +
+                        '<span>Пробег: ' + car.mileage.toLocaleString('ru-RU') + ' км</span>' +
+                        (car.power ? '<span>' + car.power + ' л.с.</span>' : '') +
+                    '</div>' +
+                    '<div class="car-features">' +
+                        '<span class="car-feature">' + (BODY_LABELS[car.bodyType]   || car.bodyType)   + '</span>' +
+                        '<span class="car-feature">' + (FUEL_LABELS[car.fuelType]   || car.fuelType)   + '</span>' +
+                        '<span class="car-feature">' + (TX_LABELS[car.transmission] || car.transmission) + '</span>' +
+                        '<span class="car-feature">' + (DRIVE_LABELS[car.driveType] || car.driveType)  + '</span>' +
+                    '</div>' +
+                    '<div class="car-actions">' +
+                        '<button class="car-button" onclick="goToCard(' + car.id + ')">Подробнее</button>' +
+                        '<button class="car-button compare-button" onclick="goToCompare()">Сравнить</button>' +
+                    '</div>' +
+                '</div>';
+
+            return card;
+        }
+
+        function renderList(cars) {
+            container.innerHTML = '';
+
+            if (!cars || cars.length === 0) {
+                renderEmpty();
+                return;
+            }
+
+            for (var i = 0; i < cars.length; i++) {
+                container.appendChild(renderCard(cars[i]));
+            }
+
+            updateCount(cars.length);
+            showContent();
+        }
+
+        function removeCardFromDom(carId) {
+            var card = container.querySelector('[data-car-id="' + carId + '"]');
+            if (!card) return;
+
+            card.classList.add('removing');
+
+            setTimeout(function () {
+                card.remove();
+
+                var remaining = container.querySelectorAll('.car-card').length;
+                updateCount(remaining);
+
+                if (remaining === 0) renderEmpty();
+            }, 300);
+        }
+
+
+        container.addEventListener('click', function (e) {
+            if (!e.target.classList.contains('remove-favourite')) return;
+
+            var btn   = e.target;
+            var carId = Number(btn.dataset.id);
+
+            btn.disabled = true;
+
+            ajaxRequest(
+                'DELETE',
+                '/api/favourites/' + carId,
+
+                function () {
+                    removeCardFromDom(carId);
+                },
+
+                function (err) {
+                    console.error('Ошибка удаления из избранного:', err);
+                    btn.disabled = false;
+                    alert('Не удалось удалить: ' + err);
+                }
+            );
+        });
+
+        window.goToCard = function (id) {
+            window.location.href = 'card.html?id=' + id;
+        };
+        window.goToCompare = function () {
+            window.location.href = 'compare.html';
+        };
+
+        showLoading();
+
+
+        ajaxRequest(
+            'GET',
+            '/api/favourites',
+
+            function (result) {
+                renderList(result.data || []);
+                showContent();
+            },
+
+            function (err) {
+                showError('Не удалось загрузить избранное: ' + err);
+            }
+        );
+    }());
+    </script>
+
+</body>
+</html>

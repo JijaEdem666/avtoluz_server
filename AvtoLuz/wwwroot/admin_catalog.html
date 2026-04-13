@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style_admin_catalog.css" />
+    <title>Автолуз - Добавление автомобилей</title>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <img src="logo.png" width="100" height="50" alt="Логотип" />
+        </a>
+
+        <nav>
+
+            <a href="about.html">О нас</a>
+            <a href="catalogue.html">Каталог</a>
+            <a href="terms.html">Условия покупки</a>
+            <a href="favourites.html">Избранное</a>
+            <a href="contacts.html">Контакты</a>
+            <a href="admin_catalog.html">Добавить автомобиль</a>
+
+        </nav>
+    </header>
+    <div class="admin-container">
+
+
+        <div class="form-container">
+
+            <form id="carForm" enctype="multipart/form-data">
+                <div class="form-grid">
+                    <!-- Основная информация -->
+                    <div class="form-section">
+                        <h3>📝 Основная информация</h3>
+                        <div class="form-group">
+                            <label for="brand">Марка <span class="required-star">*</span></label>
+                            <input type="text" id="brand" name="brand" class="form-control" required
+                                   placeholder="Например: BMW" maxlength="50">
+                            <small class="field-hint">Обязательное поле. Только буквы, цифры, пробелы и дефисы. От 2 до 50 символов.</small>
+                            <div class="error-message" id="brandError">Марка должна содержать только буквы и цифры (2-50 символов)</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="model">Модель <span class="required-star">*</span></label>
+                            <input type="text" id="model" name="model" class="form-control" required
+                                   placeholder="Например: X5 xDrive40i" maxlength="100">
+                            <small class="field-hint">Обязательное поле. Может содержать буквы, цифры, пробелы и специальные символы. От 1 до 100 символов.</small>
+                            <div class="error-message" id="modelError">Модель должна содержать от 1 до 100 символов</div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="year">Год выпуска <span class="required-star">*</span></label>
+                                <input type="number" id="year" name="year" class="form-control" required
+                                       placeholder="2024">
+                                <small class="field-hint">Обязательное поле. Год должен быть от 1990 до 2024.</small>
+                                <div class="error-message" id="yearError">Год должен быть от 1990 до 2024</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="mileage">Пробег (км) <span class="required-star">*</span></label>
+                                <input type="number" id="mileage" name="mileage" class="form-control" required
+                                       placeholder="15000">
+                                <small class="field-hint">Обязательное поле. Пробег от 0 до 1 000 000 км.</small>
+                                <div class="error-message" id="mileageError">Пробег должен быть от 0 до 1 000 000 км</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Цена (руб) <span class="required-star">*</span></label>
+                            <input type="number" id="price" name="price" class="form-control" required
+                                   placeholder="5500000">
+                            <small class="field-hint">Обязательное поле. Цена от 1 до 999 999 999 рублей.</small>
+                            <div class="error-message" id="priceError">Цена должна быть от 1 до 999 999 999 руб</div>
+                        </div>
+                    </div>
+
+                    <!-- Двигатель и трансмиссия -->
+                    <div class="form-section">
+                        <h3>⚙️ Двигатель и трансмиссия</h3>
+                        <div class="form-group">
+                            <label for="engine">Двигатель <span class="required-star">*</span></label>
+                            <input type="text" id="engine" name="engine" class="form-control" disabled required
+                                   placeholder="3.0 л, бензин, 340 л.с.">
+                            <small class="field-hint">Обязательное поле. Описание двигателя от 5 до 100 символов.</small>
+                            <div class="error-message" id="engineError">Описание двигателя обязательно (5-100 символов)</div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="engineVolume">Объем двигателя (л)</label>
+                                <input type="number" id="engineVolume" name="engineVolume" class="form-control"
+                                       step="0.1" placeholder="3.0">
+                                <small class="field-hint">Необязательное поле. Объем от 0.8 до 8.0 литров.</small>
+                                <div class="error-message" id="engineVolumeError">Объем должен быть от 0.8 до 8.0 л</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="power">Мощность (л.с.)</label>
+                                <input type="number" id="power" name="power" class="form-control"
+                                       placeholder="340">
+                                <small class="field-hint">Необязательное поле. Мощность от 50 до 2000 лошадиных сил.</small>
+                                <div class="error-message" id="powerError">Мощность должна быть от 50 до 2000 л.с.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fuelType">Тип топлива <span class="required-star">*</span></label>
+                            <select id="fuelType" name="fuelType" class="form-control" required>
+                                <option value="">Выберите тип топлива</option>
+                                <option value="petrol">Бензин</option>
+                                <option value="diesel">Дизель</option>
+                                <option value="electric">Электро</option>
+                                <option value="hybrid">Гибрид</option>
+                                <option value="gas">Газ</option>
+                            </select>
+                            <small class="field-hint">Обязательное поле. Выберите тип топлива из списка.</small>
+                            <div class="error-message" id="fuelTypeError">Выберите тип топлива</div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="transmission">Коробка передач <span class="required-star">*</span></label>
+                                <select id="transmission" name="transmission" class="form-control" required>
+                                    <option value="">Выберите КПП</option>
+                                    <option value="manual">Механическая</option>
+                                    <option value="automatic">Автоматическая</option>
+                                    <option value="robot">Робот</option>
+                                    <option value="variator">Вариатор</option>
+                                </select>
+                                <small class="field-hint">Обязательное поле. Выберите тип коробки передач.</small>
+                                <div class="error-message" id="transmissionError">Выберите коробку передач</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="driveType">Привод <span class="required-star">*</span></label>
+                                <select id="driveType" name="driveType" class="form-control" required>
+                                    <option value="">Выберите привод</option>
+                                    <option value="front">Передний</option>
+                                    <option value="rear">Задний</option>
+                                    <option value="all">Полный</option>
+                                </select>
+                                <small class="field-hint">Обязательное поле. Выберите тип привода автомобиля.</small>
+                                <div class="error-message" id="driveTypeError">Выберите тип привода</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="acceleration">Разгон<br> 0-100 км/ч (сек)</label>
+                                <input type="number" id="acceleration" name="acceleration" class="form-control"
+                                       step="0.1" placeholder="5.5">
+                                <small class="field-hint">Необязательное поле. Время разгона от 1 до 20 секунд.</small>
+                                <div class="error-message" id="accelerationError">Разгон должен быть от 1 до 20 сек</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="fuelConsumption">Расход топлива (л/100км)</label>
+                                <input type="number" id="fuelConsumption" name="fuelConsumption" class="form-control"
+                                       step="0.1" placeholder="9.2">
+                                <small class="field-hint">Необязательное поле. Расход топлива от 0 до 30 л/100км.</small>
+                                <div class="error-message" id="fuelConsumptionError">Расход должен быть от 0 до 30 л/100км</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Кузов и габариты -->
+                    <div class="form-section">
+                        <h3>🚗 Кузов и габариты</h3>
+                        <div class="form-group">
+                            <label for="bodyType">Тип кузова <span class="required-star">*</span></label>
+                            <select id="bodyType" name="bodyType" class="form-control" required>
+                                <option value="">Выберите тип кузова</option>
+                                <option value="sedan">Седан</option>
+                                <option value="suv">Внедорожник</option>
+                                <option value="hatchback">Хэтчбек</option>
+                                <option value="wagon">Универсал</option>
+                                <option value="coupe">Купе</option>
+                                <option value="convertible">Кабриолет</option>
+                                <option value="minivan">Минивэн</option>
+                                <option value="pickup">Пикап</option>
+                            </select>
+                            <small class="field-hint">Обязательное поле. Выберите тип кузова из списка.</small>
+                            <div class="error-message" id="bodyTypeError">Выберите тип кузова</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="color">Цвет кузова <span class="required-star">*</span></label>
+                            <input type="text" id="color" name="color" class="form-control" required
+                                   placeholder="Например: Черный сапфир">
+                            <small class="field-hint">Обязательное поле. Укажите цвет кузова автомобиля.</small>
+                            <div class="error-message" id="colorError">Укажите цвет кузова</div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="doors">Количество дверей</label>
+                                <input type="number" id="doors" name="doors" class="form-control" min="2" max="6" placeholder="5">
+                                <small class="field-hint">Необязательное поле. Количество дверей от 2 до 6.</small>
+                                <div class="error-message" id="doorsError">Количество дверей должно быть от 2 до 6</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="length">Длина (мм)</label>
+                                <input type="number" id="length" name="length" class="form-control"
+                                       placeholder="4922">
+                                <small class="field-hint">Необязательное поле. Длина автомобиля от 1000 до 10000 мм.</small>
+                                <div class="error-message" id="lengthError">Длина должна быть от 1000 до 10000 мм</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="width">Ширина (мм)</label>
+                                <input type="number" id="width" name="width" class="form-control"
+                                       placeholder="2004">
+                                <small class="field-hint">Необязательное поле. Ширина автомобиля от 1000 до 3000 мм.</small>
+                                <div class="error-message" id="widthError">Ширина должна быть от 1000 до 3000 мм</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="height">Высота (мм)</label>
+                                <input type="number" id="height" name="height" class="form-control"
+                                       placeholder="1776">
+                                <small class="field-hint">Необязательное поле. Высота автомобиля от 1000 до 3000 мм.</small>
+                                <div class="error-message" id="heightError">Высота должна быть от 1000 до 3000 мм</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="wheelbase">Колесная база (мм)</label>
+                                <input type="number" id="wheelbase" name="wheelbase" class="form-control"
+                                       placeholder="2975">
+                                <small class="field-hint">Необязательное поле. Колесная база от 1000 до 4000 мм.</small>
+                                <div class="error-message" id="wheelbaseError">Колесная база должна быть от 1000 до 4000 мм</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="trunkVolume">Объем багажника (л)</label>
+                                <input type="number" id="trunkVolume" name="trunkVolume" class="form-control"
+                                       placeholder="650">
+                                <small class="field-hint">Необязательное поле. Объем багажника от 100 до 5000 литров.</small>
+                                <div class="error-message" id="trunkVolumeError">Объем багажника должен быть от 100 до 5000 л</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Комфорт и оборудование -->
+                    <div class="form-section">
+                        <h3>🎨 Комфорт и оборудование</h3>
+                        <div class="form-group">
+                            <label for="climateControl">Климат-контроль</label>
+                            <select id="climateControl" name="climateControl" class="form-control">
+                                <option value="">Выберите тип</option>
+                                <option value="none">Нет</option>
+                                <option value="1-zone">1-зонный</option>
+                                <option value="2-zone">2-зонный</option>
+                                <option value="3-zone">3-зонный</option>
+                                <option value="4-zone">4-зонный</option>
+                            </select>
+                            <small class="field-hint">Необязательное поле. Выберите тип климат-контроля.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="seatAdjustment">Электрорегулировка сидений</label>
+                            <select id="seatAdjustment" name="seatAdjustment" class="form-control">
+                                <option value="">Выберите тип</option>
+                                <option value="none">Нет</option>
+                                <option value="driver">Только водитель</option>
+                                <option value="driver_passenger">Водитель и пассажир</option>
+                            </select>
+                            <small class="field-hint">Необязательное поле. Выберите тип регулировки сидений.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="heatedSeats">Подогрев сидений</label>
+                            <select id="heatedSeats" name="heatedSeats" class="form-control">
+                                <option value="">Выберите тип</option>
+                                <option value="none">Нет</option>
+                                <option value="front">Передние</option>
+                                <option value="rear">Задние</option>
+                                <option value="front_rear">Передние и задние</option>
+                            </select>
+                            <small class="field-hint">Необязательное поле. Выберите, какие сидения имеют подогрев.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="cruiseControl">Круиз-контроль</label>
+                            <select id="cruiseControl" name="cruiseControl" class="form-control">
+                                <option value="">Выберите тип</option>
+                                <option value="none">Нет</option>
+                                <option value="regular">Обычный</option>
+                                <option value="adaptive">Адаптивный</option>
+                            </select>
+                            <small class="field-hint">Необязательное поле. Выберите тип круиз-контроля.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="multimedia">Мультимедиа</label>
+                            <input type="text" id="multimedia" name="multimedia" class="form-control"
+                                   placeholder="Например: iDrive 7.0, 12.3&quot;" maxlength="100">
+                            <small class="field-hint">Необязательное поле. Название и характеристики мультимедийной системы.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="audioSystem">Аудиосистема</label>
+                            <input type="text" id="audioSystem" name="audioSystem" class="form-control"
+                                   placeholder="Например: Harman Kardon" maxlength="100">
+                            <small class="field-hint">Необязательное поле. Название и характеристики аудиосистемы.</small>
+                        </div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="leatherInterior" name="leatherInterior">
+                                <label for="leatherInterior">Кожаный салон</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="sunroof" name="sunroof">
+                                <label for="sunroof">Люк</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Безопасность -->
+                    <div class="form-section">
+                        <h3>🛡️ Безопасность</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="airbags">Количество подушек безопасности</label>
+                                <input type="number" id="airbags" name="airbags" class="form-control"
+                                       min="0" max="20" placeholder="8">
+                                <small class="field-hint">Необязательное поле. Количество подушек безопасности от 0 до 20.</small>
+                                <div class="error-message" id="airbagsError">Количество подушек должно быть от 0 до 20</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="camera">Камера заднего<br> вида</label>
+                                <select id="camera" name="camera" class="form-control">
+                                    <option value="">Выберите тип</option>
+                                    <option value="none">Нет</option>
+                                    <option value="rear">Задняя</option>
+                                    <option value="surround">Круговая</option>
+                                </select>
+                                <small class="field-hint">Необязательное поле. Выберите тип камеры заднего вида.</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="parkingSensors">Парктроники</label>
+                            <select id="parkingSensors" name="parkingSensors" class="form-control">
+                                <option value="">Выберите тип</option>
+                                <option value="none">Нет</option>
+                                <option value="front">Передние</option>
+                                <option value="rear">Задние</option>
+                                <option value="front_rear">Передние и задние</option>
+                            </select>
+                            <small class="field-hint">Необязательное поле. Выберите расположение парктроников.</small>
+                        </div>
+                        <div class="characteristics-grid">
+                            <div class="characteristic-item">
+                                <input type="checkbox" id="abs" name="abs">
+                                <label for="abs">ABS</label>
+                            </div>
+                            <div class="characteristic-item">
+                                <input type="checkbox" id="esp" name="esp">
+                                <label for="esp">ESP</label>
+                            </div>
+                            <div class="characteristic-item">
+                                <input type="checkbox" id="signRecognition" name="signRecognition">
+                                <label for="signRecognition">Система распознавания знаков</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Описание -->
+                    <div class="form-section">
+                        <h3>📋 Описание</h3>
+                        <div class="form-group">
+                            <label for="description">Описание автомобиля <span class="required-star">*</span></label>
+                            <textarea id="description" name="description" class="form-control"
+                                      rows="6" placeholder="Подробное описание автомобиля, его особенности и преимущества..."
+                                      required maxlength="2000"></textarea>
+                            <small class="field-hint">Обязательное поле. Подробное описание от 10 до 2000 символов.</small>
+                            <div class="error-message" id="descriptionError">Описание обязательно (10-2000 символов)</div>
+                            <div class="success-message" id="descriptionSuccess"><span id="charCount">0</span>/2000 символов</div>
+                        </div>
+                    </div>
+
+                    <!-- Загрузка изображений -->
+                    <div class="form-section">
+                        <h3>📷 Фотографии автомобиля</h3>
+                        <div class="form-group">
+                            <div class="file-upload" onclick="document.getElementById('images').click()">
+                                <i>📁</i>
+                                <p>Перетащите файлы сюда или нажмите для выбора</p>
+                                <small class="field-hint" style="text-align: center; display: block; margin-top: 10px;">
+                                    Можно загрузить до 10 изображений в форматах JPG, PNG, WEBP<br>
+                                    Максимальный размер каждого файла - 10MB
+                                </small>
+                            </div>
+                            <input type="file" id="images" name="images" multiple
+                                   accept="image/jpeg,image/png,image/webp" style="display: none;" onchange="previewImages(this)">
+                            <div class="error-message" id="imagesError">Можно загрузить до 10 изображений (JPG, PNG, WEBP, макс. 10MB каждое)</div>
+                        </div>
+                        <div class="image-preview" id="imagePreview"></div>
+                    </div>
+                </div>
+
+                <div class="validation-summary hidden" id="validationSummary">
+                    <h4>⚠️ Исправьте следующие ошибки:</h4>
+                    <ul id="validationErrors"></ul>
+                </div>
+
+                <div class="form-actions">
+                    <button id="saveBtn" type="button" class="btn btn-primary">
+                        Сохранить черновик
+                    </button>
+                    <button type="submit" class="btn btn-success" id="submitBtn">
+                        🚀 Добавить автомобиль
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+
+        <p>&copy; 2023 Автомобильный агрегатор "АвтоЛуз". Все права защищены. Email: <a class="email" href="/cdn-cgi/l/email-protection#4d24232b220d2c3b3922213837633f38"><span class="__cf_email__" data-cfemail="e58c8b838aa58493918a89909fcb9790">[email&#160;protected]</span></a> </p>
+
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script>
+        // Объект с правилами валидации
+        const validationRules = {
+            brand: {
+                required: true,
+                pattern: /^(?!.*[-\s]{2})(?!.*[\s-]$)(?!^[\s-])[a-zA-Zа-яА-ЯёЁ0-9]+(?:[-\s][a-zA-Zа-яА-ЯёЁ0-9]+)*$/,
+                message: "Марка должна содержать только буквы, цифры, пробелы и дефисы (2-50 символов)"
+            },
+            model: {
+                required: true,
+                minLength: 1,
+                maxLength: 100,
+                message: "Модель должна содержать от 1 до 100 символов"
+            },
+            year: {
+                required: true,
+                min: 1990,
+                max: (new Date().getFullYear()) - 1,
+                message: `Год должен быть от 1990 до ${(new Date().getFullYear()) - 1}`
+            },
+            mileage: {
+                required: true,
+                min: 0,
+                max: 1000000,
+                message: "Пробег должен быть от 0 до 1 000 000 км"
+            },
+            price: {
+                required: true,
+                min: 1,
+                max: 999999999,
+                message: "Цена должна быть от 1 до 999 999 999 руб"
+            },
+
+            engine: {
+                required: true,
+                minLength: 5,
+                maxLength: 100,
+                message: "Описание двигателя обязательно (5-100 символов)"
+            },
+            engineVolume: {
+                required: false,
+                min: 0.8,
+                max: 8.0,
+                message: "Объем должен быть от 0.8 до 8.0 л"
+            },
+            power: {
+                required: false,
+                min: 50,
+                max: 2000,
+                message: "Мощность должна быть от 50 до 2000 л.с."
+            },
+            fuelType: { required: true, message: "Выберите тип топлива" },
+            transmission: { required: true, message: "Выберите коробку передач" },
+            driveType: { required: true, message: "Выберите тип привода" },
+            acceleration: {
+                required: false,
+                min: 1,
+                max: 20,
+                message: "Разгон должен быть от 1 до 20 сек"
+            },
+            fuelConsumption: {
+                required: false,
+                min: 0,
+                max: 30,
+                message: "Расход должен быть от 0 до 30 л/100км"
+            },
+            bodyType: { required: true, message: "Выберите тип кузова" },
+            color: {
+                required: true,
+                minLength: 2,
+                maxLength: 50,
+                pattern: /^(?!.*[-\s]{2})(?!.*\s$)(?!^-)[a-zA-Zа-яА-ЯёЁ]+(?:[-\s][a-zA-Zа-яА-ЯёЁ]+)*$/,
+                message: "Укажите цвет кузова"
+            },
+            doors: {
+                required: false,
+                min: 2,
+                max: 6,
+                message: "Количество дверей должно быть от 2 до 6"
+            },
+            length: {
+                required: false,
+                min: 1000,
+                max: 10000,
+                message: "Длина должна быть от 1000 до 10000 мм"
+            },
+            width: {
+                required: false,
+                min: 1000,
+                max: 3000,
+                message: "Ширина должна быть от 1000 до 3000 мм"
+            },
+            height: {
+                required: false,
+                min: 1000,
+                max: 3000,
+                message: "Высота должна быть от 1000 до 3000 мм"
+            },
+            wheelbase: {
+                required: false,
+                min: 1000,
+                max: 4000,
+                message: "Колесная база должна быть от 1000 до 4000 мм"
+            },
+            trunkVolume: {
+                required: false,
+                min: 100,
+                max: 5000,
+                message: "Объем багажника должен быть от 100 до 5000 л"
+            },
+            airbags: {
+                required: false,
+                min: 0,
+                max: 20,
+                message: "Количество подушек должно быть от 0 до 20"
+            },
+            description: {
+                required: true,
+                minLength: 10,
+                maxLength: 2000,
+                message: "Описание обязательно (10-2000 символов)"
+            }
+        };
+
+        // Функция валидации поля
+        function validateField(fieldName, value) {
+            const rules = validationRules[fieldName];
+            if (!rules) return true;
+
+            const errorElement = document.getElementById(`${fieldName}Error`);
+            const successElement = document.getElementById(`${fieldName}Success`);
+            const inputElement = document.querySelector(`[name="${fieldName}"]`);
+
+            // Проверка на обязательность
+            if (rules.required && (!value || value.toString().trim() === '')) {
+                showError(fieldName, rules.message);
+                return false;
+            }
+
+            // Если поле не обязательно и пустое - пропускаем проверку
+            if (!rules.required && (!value || value.toString().trim() === '')) {
+                clearValidation(fieldName);
+                return true;
+            }
+
+            // Проверка паттерна
+            if (rules.pattern && !rules.pattern.test(value)) {
+                showError(fieldName, rules.message);
+                return false;
+            }
+
+            // Проверка минимальной длины
+            if (rules.minLength && value.length < rules.minLength) {
+                showError(fieldName, rules.message);
+                return false;
+            }
+
+            // Проверка максимальной длины
+            if (rules.maxLength && value.length > rules.maxLength) {
+                showError(fieldName, rules.message);
+                return false;
+            }
+
+            // Проверка числовых значений
+            if (rules.min !== undefined && parseFloat(value) < rules.min) {
+                showError(fieldName, rules.message);
+                return false;
+            }
+
+            if (rules.max !== undefined && parseFloat(value) > rules.max) {
+                showError(fieldName, rules.message);
+                return false;
+            }
+
+            // Если все проверки пройдены
+            clearValidation(fieldName);
+            if (successElement) {
+                successElement.classList.add('show');
+            }
+            return true;
+        }
+
+        // Показать ошибку
+        function showError(fieldName, message) {
+            const inputElement = document.querySelector(`[name="${fieldName}"]`);
+
+            if (inputElement) {
+                inputElement.classList.remove('valid');
+                inputElement.classList.add('invalid');
+            }
+        }
+
+        // Очистить валидацию
+        function clearValidation(fieldName) {
+            const errorElement = document.getElementById(`${fieldName}Error`);
+            const successElement = document.getElementById(`${fieldName}Success`);
+            const inputElement = document.querySelector(`[name="${fieldName}"]`);
+
+            if (errorElement) {
+                errorElement.classList.remove('show');
+            }
+            if (inputElement) {
+                inputElement.classList.remove('invalid');
+                inputElement.classList.add('valid');
+            }
+        }
+
+        // Валидация всей формы
+        function validateForm() {
+            let isValid = true;
+            const errors = [];
+
+            for (const fieldName in validationRules) {
+                const inputElement = document.querySelector(`[name="${fieldName}"]`);
+                if (inputElement) {
+                    const value = inputElement.type === 'checkbox' ? inputElement.checked : inputElement.value;
+                    if (!validateField(fieldName, value)) {
+                        isValid = false;
+                        errors.push(validationRules[fieldName].message);
+                    }
+                }
+            }
+
+            // Валидация изображений
+
+            if (!validateImages()) {
+                isValid = false;
+                errors.push('Ошибка загрузки изображений');
+            }
+
+            // Показать/скрыть сводку ошибок
+            const validationSummary = document.getElementById('validationSummary');
+            const validationErrors = document.getElementById('validationErrors');
+
+            if (!isValid) {
+                validationErrors.innerHTML = '';
+                errors.forEach(error => {
+                    const li = document.createElement('li');
+                    li.textContent = error;
+                    validationErrors.appendChild(li);
+                });
+                validationSummary.classList.remove('hidden');
+            } else {
+                validationSummary.classList.add('hidden');
+            }
+
+
+            return isValid;
+        }
+
+        // Глобальная переменная для хранения текущих файлов
+        let currentFiles = [];
+
+        // Предпросмотр изображений
+        function previewImages(input) {
+            const preview = document.getElementById('imagePreview');
+            const maxFiles = 10;
+
+            // Обновляем текущие файлы
+            currentFiles = Array.from(input.files);
+
+            // Проверяем количество файлов
+            if (currentFiles.length > maxFiles) {
+                showError('images', `Можно загрузить не более ${maxFiles} изображений. Выбрано: ${currentFiles.length}`);
+                currentFiles = currentFiles.slice(0, maxFiles);
+            }
+
+            // Обновляем input files
+            updateInputFiles();
+
+            // Очищаем превью
+            preview.innerHTML = '';
+
+            if (currentFiles.length > 0) {
+                currentFiles.forEach((file, index) => {
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            const previewItem = document.createElement('div');
+                            previewItem.className = 'preview-item';
+                            previewItem.setAttribute('data-index', index);
+                            previewItem.innerHTML = `
+                                    <img src="${e.target.result}" alt="Preview">
+                                    <button type="button" class="remove-image" onclick="removeImage(${index})">×</button>
+                                `;
+                            preview.appendChild(previewItem);
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+
+                // Показываем информацию о количестве файлов
+                updateImageCount();
+            } else {
+                clearImageValidation();
+            }
+        }
+
+        // Обновление input files на основе currentFiles
+        function updateInputFiles() {
+            const input = document.getElementById('images');
+            const dataTransfer = new DataTransfer();
+
+            currentFiles.forEach(file => {
+                dataTransfer.items.add(file);
+            });
+
+            input.files = dataTransfer.files;
+        }
+
+        // Удаление изображения по индексу
+        function removeImage(index) {
+            // Удаляем файл из массива
+            currentFiles.splice(index, 1);
+
+            // Обновляем input files
+            updateInputFiles();
+
+            // Полностью перерисовываем превью с новыми индексами
+            rerenderPreview();
+
+            // Обновляем счетчик
+            updateImageCount();
+        }
+
+        // Полная перерисовка превью
+        function rerenderPreview() {
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = '';
+
+            currentFiles.forEach((file, index) => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const previewItem = document.createElement('div');
+                        previewItem.className = 'preview-item';
+                        previewItem.setAttribute('data-index', index);
+                        previewItem.innerHTML = `
+                                <img src="${e.target.result}" alt="Preview">
+                                <button type="button" class="remove-image" onclick="removeImage(${index})">×</button>
+                            `;
+                        preview.appendChild(previewItem);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        // Обновление информации о количестве загруженных файлов
+        function updateImageCount() {
+            const count = currentFiles.length;
+            const maxFiles = 10;
+
+            // Создаем или находим элемент для отображения количества
+            let countElement = document.getElementById('imagesCount');
+            if (!countElement) {
+                countElement = document.createElement('div');
+                countElement.id = 'imagesCount';
+                countElement.className = 'field-hint';
+                document.getElementById('imagesError').after(countElement);
+            }
+
+            countElement.textContent = `Загружено фотографий: ${count}/${maxFiles}`;
+            countElement.style.textAlign = 'center';
+            countElement.style.marginTop = '10px';
+            countElement.style.fontWeight = 'bold';
+            countElement.style.color = count === maxFiles ? '#e74c3c' : '#27ae60';
+
+            // Очищаем ошибки если все в порядке
+            if (count <= maxFiles) {
+                clearImageValidation();
+            }
+
+            // Показываем предупреждение если достигнут лимит
+            if (count === maxFiles) {
+                showWarning('images', `Достигнут лимит в ${maxFiles} фотографий`);
+            }
+        }
+
+        // Показать предупреждение
+        function showWarning(fieldName, message) {
+            const errorElement = document.getElementById(`${fieldName}Error`);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.color = '#f39c12';
+                errorElement.classList.add('show');
+            }
+        }
+
+        // Очистка валидации изображений
+        function clearImageValidation() {
+            const errorElement = document.getElementById('imagesError');
+            if (errorElement) {
+                errorElement.classList.remove('show');
+            }
+        }
+
+        // Валидация изображений
+        function validateImages() {
+            const maxFiles = 10;
+            const maxSize = 10 * 1024 * 1024; // 10MB
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+
+            // Проверка количества файлов
+            if (currentFiles.length > maxFiles) {
+                showError('images', `Можно загрузить не более ${maxFiles} изображений`);
+                return false;
+            }
+
+            // Проверка каждого файла
+            for (let i = 0; i < currentFiles.length; i++) {
+                const file = currentFiles[i];
+
+                if (!allowedTypes.includes(file.type)) {
+                    showError('images', 'Допустимы только JPG, PNG и WEBP файлы');
+                    return false;
+                }
+
+                if (file.size > maxSize) {
+                    showError('images', `Файл "${file.name}" слишком большой. Максимальный размер - 10MB`);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+
+        // Счетчик символов для описания
+        document.getElementById('description').addEventListener('input', function () {
+            const charCount = this.value.length;
+            document.getElementById('charCount').textContent = charCount;
+            validateField('description', this.value);
+        });
+
+        // Валидация в реальном времени
+        document.querySelectorAll('input, select, textarea').forEach(element => {
+            element.addEventListener('input', function () {
+                const value = this.type === 'checkbox' ? this.checked : this.value;
+                validateField(this.name, value);
+            });
+
+            // Для числовых полей - валидация при вводе
+            if (element.type === 'number') {
+                element.addEventListener('input', function () {
+                    const value = this.value;
+                    if (value !== '') {
+                        validateField(this.name, value);
+                    }
+                });
+            }
+        });
+
+        // Сохранение черновика
+        document.getElementById('saveBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+            if (validateForm()) {
+                const formData = new FormData(document.getElementById('carForm'));
+                const formObject = {};
+                for (let [key, value] of formData.entries()) {
+                    formObject[key] = value;
+                }
+
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    formObject[checkbox.name] = checkbox.checked;
+                });
+
+                localStorage.setItem('carDraft', JSON.stringify(formObject));
+                alert('Черновик сохранен!');
+            }
+        });
+
+        // Загрузка черновика
+        function loadDraft() {
+            const draft = localStorage.getItem('carDraft');
+            if (draft) {
+                const data = JSON.parse(draft);
+                Object.keys(data).forEach(key => {
+                    const element = document.querySelector(`[name="${key}"]`);
+                    if (element) {
+                        if (element.type === 'checkbox') {
+                            element.checked = data[key];
+                        } else {
+                            element.value = data[key];
+                        }
+                        // Валидируем поле после загрузки
+                        setTimeout(() => validateField(key, element.value), 100);
+                    }
+                });
+
+                // Обновляем счетчик символов
+                const description = document.getElementById('description');
+                if (description.value) {
+                    document.getElementById('charCount').textContent = description.value.length;
+                }
+            }
+        }
+
+        // Обработка отправки формы
+        document.getElementById('carForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (!validateForm()) return;
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Добавляем...';
+
+            const form = document.getElementById('carForm');
+
+            function intOrNull(val) { const n = parseInt(val, 10); return isNaN(n) ? null : n; }
+            function floatOrNull(val) { const n = parseFloat(val); return isNaN(n) ? null : n; }
+            function strOrNull(val) { return val && val.trim() !== '' ? val.trim() : null; }
+
+            // ── Собираем JSON из полей формы ──────────────────────────
+            const payload = {
+                brand: strOrNull(form.brand.value),
+                model: strOrNull(form.model.value),
+                year: intOrNull(form.year.value),
+                mileage: intOrNull(form.mileage.value),
+                price: intOrNull(form.price.value),
+                color: strOrNull(form.color.value),
+                fuelType: strOrNull(form.fuelType.value),
+                transmission: strOrNull(form.transmission.value),
+                driveType: strOrNull(form.driveType.value),
+                bodyType: strOrNull(form.bodyType.value),
+                description: strOrNull(form.description.value),
+                engineDescription: strOrNull(form.engine.value),
+                engineVolume: floatOrNull(form.engineVolume.value),
+                power: intOrNull(form.power.value),
+                acceleration: floatOrNull(form.acceleration.value),
+                fuelConsumption: floatOrNull(form.fuelConsumption.value),
+                doors: intOrNull(form.doors.value),
+                lengthMm: intOrNull(form.length.value),
+                widthMm: intOrNull(form.width.value),
+                heightMm: intOrNull(form.height.value),
+                wheelbaseMm: intOrNull(form.wheelbase.value),
+                trunkVolume: intOrNull(form.trunkVolume.value),
+                climateControl: strOrNull(form.climateControl.value),
+                seatAdjustment: strOrNull(form.seatAdjustment.value),
+                heatedSeats: strOrNull(form.heatedSeats.value),
+                cruiseControl: strOrNull(form.cruiseControl.value),
+                multimedia: strOrNull(form.multimedia.value),
+                audioSystem: strOrNull(form.audioSystem.value),
+                leatherInterior: form.leatherInterior.checked,
+                sunroof: form.sunroof.checked,
+                airbags: intOrNull(form.airbags.value),
+                camera: strOrNull(form.camera.value),
+                parkingSensors: strOrNull(form.parkingSensors.value),
+                abs: form.abs.checked,
+                esp: form.esp.checked,
+                signRecognition: form.signRecognition.checked,
+                image: currentFiles.length > 0 ? currentFiles[0].name : null,
+            };
+
+            // ── Шаг 1: загружаем фотографии на сервер (если есть) ──────
+            // Файлы отправляются отдельным запросом POST /api/images
+            // (multipart/form-data), сервер сохраняет их в wwwroot/images/
+            // и возвращает массив путей: ["images/bmw_x5_a1b2.jpg", ...]
+            // Первый путь записывается в поле payload.image для БД.
+
+            function submitCarData(imagePath) {
+                payload.image = imagePath;
+
+                // ── Шаг 2: POST /api/cars c JSON ─────────────────────────────
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '/api/cars', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.setRequestHeader('Accept', 'application/json');
+                xhr.timeout = 15000;
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState !== XMLHttpRequest.DONE) return;
+
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '\uD83D\uDE80 Добавить автомобиль';
+
+                    if (xhr.status === 201) {
+                        const car = JSON.parse(xhr.responseText);
+                        showServerBanner('success', '\u2705 Автомобиль "' + car.brand + ' ' + car.model + '" добавлен! ID: ' + car.id);
+                        form.reset();
+                        currentFiles = [];
+                        document.getElementById('imagePreview').innerHTML = '';
+                        localStorage.removeItem('carDraft');
+                        document.querySelectorAll('.error-message, .success-message').forEach(el => el.classList.remove('show'));
+                        document.querySelectorAll('.form-control').forEach(el => el.classList.remove('valid', 'invalid'));
+                        document.getElementById('charCount').textContent = '0';
+                    } else {
+                        let parsed = null;
+                        try { parsed = JSON.parse(xhr.responseText); } catch (_) { }
+
+                        if (xhr.status === 400 && parsed && parsed.fields) {
+                            const fieldMap = {
+                                brand: 'brand', model: 'model', year: 'year', mileage: 'mileage',
+                                price: 'price', color: 'color', fuelType: 'fuelType',
+                                transmission: 'transmission', driveType: 'driveType',
+                                bodyType: 'bodyType', description: 'description',
+                                engineDescription: 'engine', engineVolume: 'engineVolume',
+                                power: 'power', acceleration: 'acceleration',
+                                fuelConsumption: 'fuelConsumption', doors: 'doors',
+                                lengthMm: 'length', widthMm: 'width', heightMm: 'height',
+                                wheelbaseMm: 'wheelbase', trunkVolume: 'trunkVolume',
+                                airbags: 'airbags'
+                            };
+                            for (const [field, messages] of Object.entries(parsed.fields)) {
+                                const htmlId = fieldMap[field] || field;
+                                const errEl = document.getElementById(htmlId + 'Error');
+                                const inpEl = document.querySelector('[name="' + htmlId + '"]');
+                                if (errEl) { errEl.textContent = messages[0]; errEl.classList.add('show'); }
+                                if (inpEl) { inpEl.classList.add('invalid'); inpEl.classList.remove('valid'); }
+                            }
+                            const first = document.querySelector('.error-message.show');
+                            if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            showServerBanner('error', '\u274C Сервер нашёл ошибки в данных — исправьте выделенные поля');
+                        } else {
+                            const msg = (parsed && parsed.error) ? parsed.error : ('HTTP ' + xhr.status);
+                            showServerBanner('error', '\u274C Ошибка сервера: ' + msg);
+                        }
+                    }
+                };
+
+                xhr.onerror = function () {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '\uD83D\uDE80 Добавить автомобиль';
+                    showServerBanner('error', '\u274C Сетевая ошибка. Убедитесь, что сервер запущен (dotnet run).');
+                };
+                xhr.ontimeout = function () {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '\uD83D\uDE80 Добавить автомобиль';
+                    showServerBanner('error', '\u274C Время ожидания истекло.');
+                };
+
+                xhr.send(JSON.stringify(payload));
+            }
+
+            if (currentFiles.length > 0) {
+                // Есть фото — сначала загружаем их на сервер
+                submitBtn.textContent = '\uD83D\uDDBC Загружаем фото...';
+
+                const formData = new FormData();
+                currentFiles.forEach(file => formData.append('files', file));
+
+                const uploadXhr = new XMLHttpRequest();
+                uploadXhr.open('POST', '/api/images', true);
+                uploadXhr.setRequestHeader('Accept', 'application/json');
+                uploadXhr.timeout = 60000; // 60 сек на загрузку файлов
+
+                uploadXhr.onreadystatechange = function () {
+                    if (uploadXhr.readyState !== XMLHttpRequest.DONE) return;
+
+                    if (uploadXhr.status === 200) {
+                        const result = JSON.parse(uploadXhr.responseText);
+                        // result.uploaded = ["images/bmw_x5_a1b2.jpg", ...]
+                        submitBtn.textContent = '\u23F3 Добавляем...';
+                        submitCarData(result.uploaded[0]); // первое фото — главное
+                    } else {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = '\uD83D\uDE80 Добавить автомобиль';
+                        let parsed = null;
+                        try { parsed = JSON.parse(uploadXhr.responseText); } catch (_) { }
+                        const msg = (parsed && parsed.error) ? parsed.error : ('HTTP ' + uploadXhr.status);
+                        showServerBanner('error', '\u274C Ошибка загрузки фото: ' + msg);
+                    }
+                };
+
+                uploadXhr.onerror = function () {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '\uD83D\uDE80 Добавить автомобиль';
+                    showServerBanner('error', '\u274C Сетевая ошибка при загрузке фото.');
+                };
+                uploadXhr.ontimeout = function () {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '\uD83D\uDE80 Добавить автомобиль';
+                    showServerBanner('error', '\u274C Загрузка фото заняла слишком долго.');
+                };
+
+                uploadXhr.send(formData);
+            } else {
+                // Фото нет — сразу добавляем автомобиль без изображения
+                submitCarData(null);
+            }
+        });
+
+        // Всплывающий баннер (type: 'success' | 'error')
+        function showServerBanner(type, message) {
+            let banner = document.getElementById('serverBanner');
+            if (!banner) {
+                banner = document.createElement('div');
+                banner.id = 'serverBanner';
+                banner.style.cssText = [
+                    'position:fixed', 'top:20px', 'right:20px', 'padding:16px 24px',
+                    'border-radius:8px', 'font-size:15px', 'font-weight:600',
+                    'box-shadow:0 4px 16px rgba(0,0,0,.25)', 'z-index:9999',
+                    'max-width:420px', 'line-height:1.4', 'transition:opacity .3s'
+                ].join(';');
+                document.body.appendChild(banner);
+            }
+            banner.style.background = type === 'success' ? '#27ae60' : '#c0392b';
+            banner.style.color = '#fff';
+            banner.style.opacity = '1';
+            banner.style.display = 'block';
+            banner.textContent = message;
+            clearTimeout(banner._timer);
+            banner._timer = setTimeout(() => { banner.style.opacity = '0'; setTimeout(() => { banner.style.display = 'none'; }, 300); }, 5000);
+        }
+
+        // Drag and drop для загрузки файлов
+        const fileUpload = document.querySelector('.file-upload');
+        fileUpload.addEventListener('dragover', function (e) {
+            e.preventDefault();
+            this.style.borderColor = '#3498db';
+            this.style.background = '#ecf0f1';
+        });
+
+        fileUpload.addEventListener('dragleave', function (e) {
+            e.preventDefault();
+            this.style.borderColor = '#bdc3c7';
+            this.style.background = '';
+        });
+
+        fileUpload.addEventListener('drop', function (e) {
+            e.preventDefault();
+            this.style.borderColor = '#bdc3c7';
+            this.style.background = '';
+
+            const files = e.dataTransfer.files;
+            const input = document.getElementById('images');
+
+            // Добавляем новые файлы к существующим
+            const newFiles = Array.from(files);
+            currentFiles = [...currentFiles, ...newFiles].slice(0, 10);
+
+            // Обновляем input и превью
+            updateInputFiles();
+            rerenderPreview();
+            updateImageCount();
+        });
+
+        // Автозаполнение двигателя на основе объема и мощности
+
+        function updateEngineDescription() {
+            const volume = document.getElementById('engineVolume').value;
+            const power = document.getElementById('power').value;
+            const fuelType = document.getElementById('fuelType').value;
+
+            if (volume && power && fuelType) {
+                const fuelNames = {
+                    'petrol': 'бензин',
+                    'diesel': 'дизель',
+                    'electric': 'электро',
+                    'hybrid': 'гибрид',
+                    'gas': 'газ'
+                };
+
+                const engineText = `${volume} л, ${fuelNames[fuelType]}, ${power} л.с.`;
+                document.getElementById('engine').value = engineText;
+                validateField('engine', engineText);
+            }
+        }
+
+        document.getElementById('engineVolume').addEventListener('input', updateEngineDescription);
+        document.getElementById('power').addEventListener('input', updateEngineDescription);
+        document.getElementById('fuelType').addEventListener('change', updateEngineDescription);
+
+
+        // Сброс счетчика при очистке формы
+        document.getElementById('carForm').addEventListener('reset', function () {
+            currentFiles = [];
+            setTimeout(() => {
+                updateImageCount();
+                document.getElementById('imagePreview').innerHTML = '';
+            }, 100);
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const input = document.getElementById('images');
+            currentFiles = Array.from(input.files);
+            updateImageCount();
+        });
+
+        window.addEventListener('load', loadDraft);
+    </script>
+</body>
+</html>

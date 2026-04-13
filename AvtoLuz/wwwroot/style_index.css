@@ -1,0 +1,85 @@
+.brands-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}
+
+.brand-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    transition: transform 0.3s;
+}
+
+.brand-logo:hover {
+    transform: scale(1.1);
+}
+
+.countries-section {
+    padding: 0 5% 50px;
+}
+
+.countries-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.country-column {
+    flex: 1;
+    min-width: 180px;
+}
+
+.country-name {
+    font-size: 22px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #007bff;
+    color: #333;
+}
+
+.brands-list {
+    list-style: none;
+}
+
+.brands-list li {
+    margin-bottom: 8px;
+}
+
+.brands-list a {
+    text-decoration: none;
+    color: #555;
+    font-size: 16px;
+    transition: color 0.3s, padding-left 0.3s;
+    display: block;
+}
+
+.brands-list a:hover {
+    color: #007bff;
+    padding-left: 10px;
+}
+
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {   
+    .brands-container {
+        gap: 20px;
+    }
+    
+    .brand-logo {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .countries-container {
+        flex-direction: column;
+    }
+    
+    .country-column {
+        min-width: 100%;
+    }
+
+}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style_contacts.css"/>
+    <title>АвтоЛуз - Контакты</title>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">
+            <img src="logo.png" width="100" height="50" alt="Логотип"/>
+        </a>
+
+        <nav>
+
+            <a href="about.html">О нас</a>
+            <a href="catalogue.html">Каталог</a>
+            <a href="terms.html">Условия покупки</a>
+            <a href="favourites-page.html">Избранное</a>
+            <a href="contacts.html">Контакты</a>
+            <a href="admin_catalog.html">Добавить автомобиль</a>
+
+        </nav>
+    </header>
+    <main>
+    <div class="main-content">
+
+        <div class="page-header">
+            <h1 class="page-title">Контакты</h1>
+            <p class="page-subtitle">Свяжитесь с нами любым удобным способом. Мы всегда рады помочь вам с выбором автомобиля и ответить на все ваши вопросы.</p>
+        </div>
+
+
+        <div class="contacts-section">
+
+            <div class="contact-info">
+                <h2 class="section-title">Контактная информация</h2>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <p>Адрес главного офиса</p>
+                        <p>г. Москва, ул. Ленинградский проспект, д. 80, корп. 17<br>Бизнес-центр "Ленинградский"</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-details">
+                        <p>Телефоны</p>
+                        <p>
+                            <a href="tel:+74951234567">+7 (495) 123-45-67</a> - общие вопросы<br>
+                            <a href="tel:+74951234568">+7 (495) 123-45-68</a> - отдел продаж<br>
+                            <a href="tel:+74951234569">+7 (495) 123-45-69</a> - служба поддержки
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-details">
+                        <p>Электронная почта</p>
+                        <p>
+                            <a href="mailto:info@autoluz.ru">info@autoluz.ru</a> - общие вопросы<br>
+                            <a href="mailto:sales@autoluz.ru">sales@autoluz.ru</a> - отдел продаж<br>
+                            <a href="mailto:support@autoluz.ru">support@autoluz.ru</a> - техническая поддержка
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">🕒</div>
+                    <div class="contact-details">
+                        <p>Режим работы</p>
+                        <p>
+                            Пн-Пт: 9:00 - 20:00<br>
+                            Сб-Вс: 10:00 - 18:00
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link" title="ВКонтакте">VK</a>
+                    <a href="#" class="social-link" title="Telegram">TG</a>
+                    <a href="#" class="social-link" title="WhatsApp">WA</a>
+                    <a href="#" class="social-link" title="Instagram">IG</a>
+                    <a href="#" class="social-link" title="YouTube">YT</a>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h2 class="section-title">Обратная связь</h2>
+                <form id="feedbackForm">
+                    <div class="form-group">
+                        <label for="name">Ваше имя *</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Телефон *</label>
+                        <input type="tel" id="phone" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Электронная почта *</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Тема сообщения</label>
+                        <select id="subject" class="form-control">
+                            <option value="general">Общий вопрос</option>
+                            <option value="sales">Вопрос по покупке автомобиля</option>
+                            <option value="partnership">Сотрудничество</option>
+                            <option value="support">Техническая поддержка</option>
+                            <option value="other">Другое</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Сообщение *</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Отправить сообщение</button>
+                </form>
+            </div>
+        </div>
+
+        <h2 class="section-title">Наши филиалы</h2>
+        <div class="offices-grid">
+            <div class="office-card">
+                <p class="office-name">Москва</p>
+                <div class="office-info">
+                    <p>г. Москва, ул. Ленинградский проспект, д. 80, корп. 17</p>
+                    <p><strong>Телефон:</strong> <a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
+                    <p><strong>Email:</strong> <a href="mailto:moscow@autoluz.ru">moscow@autoluz.ru</a></p>
+                </div>
+                <div class="office-hours">
+                    <div class="hours-title">Режим работы:</div>
+                    <ul class="hours-list">
+                        <li><span>Пн-Пт:</span> <span>9:00 - 20:00</span></li>
+                        <li><span>Сб-Вс:</span> <span>10:00 - 18:00</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="office-card">
+                <p class="office-name">Санкт-Петербург</p>
+                <div class="office-info">
+                    <p>г. Санкт-Петербург, Лиговский проспект, д. 50, лит. А</p>
+                    <p><strong>Телефон:</strong> <a href="tel:+78121234567">+7 (812) 123-45-67</a></p>
+                    <p><strong>Email:</strong> <a href="mailto:spb@autoluz.ru">spb@autoluz.ru</a></p>
+                </div>
+                <div class="office-hours">
+                    <div class="hours-title">Режим работы:</div>
+                    <ul class="hours-list">
+                        <li><span>Пн-Пт:</span> <span>9:00 - 20:00</span></li>
+                        <li><span>Сб-Вс:</span> <span>10:00 - 18:00</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="office-card">
+                <p class="office-name">Самара</p>
+                <div class="office-info">
+                    <p>г. Самара, ул. Владимирская, д. 52</p>
+                    <p><strong>Телефон:</strong> <a href="tel:+73431234567">+7 (343) 123-45-67</a></p>
+                    <p><strong>Email:</strong> <a href="mailto:sam@autoluz.ru">sam@autoluz.ru</a></p>
+                </div>
+                <div class="office-hours">
+                    <div class="hours-title">Режим работы:</div>
+                    <ul class="hours-list">
+                        <li><span>Пн-Пт:</span> <span>9:00 - 19:00</span></li>
+                        <li><span>Сб:</span> <span>10:00 - 17:00</span></li>
+                        <li><span>Вс:</span> <span>выходной</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Автомобильный агрегатор "АвтоЛуз". Все права защищены. Email: <a href="mailto:info@avtoluz.ru">info@avtoluz.ru</a></p>
+    </footer>
+
+</body>
+</html>
