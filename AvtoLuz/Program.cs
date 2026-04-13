@@ -78,4 +78,4 @@ app.UseDefaultFiles();
 app.UseStaticFiles();   // wwwroot/ — отдаёт только реальные файлы по точному имени
 app.MapControllers();   // /api/*
 
-app.Run($"http://localhost:{builder.Configuration.GetValue<int>("App:Port", 5000)}");
+app.Run();
