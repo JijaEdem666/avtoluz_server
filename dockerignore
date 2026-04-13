@@ -1,0 +1,18 @@
+# Папки сборки — не нужны, Docker всё соберёт сам
+**/bin/
+**/obj/
+
+# Локальные настройки
+**/appsettings.Development.json
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vs/
+.vscode/
+*.user
+
+# SQL файлы — не нужны внутри образа
+*.sql
